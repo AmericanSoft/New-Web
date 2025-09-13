@@ -3,15 +3,14 @@ import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import OurPorject from "@/components/OurPorject";
 import Whyamerican from "@/components/Whyamerican";
-import CEO from "@/components/CEO";
 import Contactus from "@/components/Contactus";
 import Blog from "@/components/Blog";
 import Services from "@/components/Services";
-import Testimonials from "@/components/Testimonials";
 import Newsletter from "@/components/Newsletter";
 import FirstHero from "@/components/First-Hero";
 import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer/Footer";
+import StackedAnimatedTestimonials from "@/components/TestimonialsCard";
 
 const Index = () => {
 
@@ -61,11 +60,13 @@ const Index = () => {
     });
   }, []);
 
+
+
+
   return (
     <div className="min-h-screen">
       <Navbar />
       <main className="space-y-4 sm:space-y-8"> {/* Reduced space on mobile */}
-
         <FirstHero/>
         <Services />
         <HowItWorks/>
@@ -73,7 +74,7 @@ const Index = () => {
         <OurPorject />
         <Contactus />
         <Blog />
-        <Testimonials />
+        <StackedAnimatedTestimonials />
         <Newsletter />
         <Footer/>
         

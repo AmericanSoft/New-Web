@@ -52,20 +52,16 @@ const Navbar: React.FC = () => {
     <header
       id="navbar"
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
+        " flex align-center fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300 ",
         isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm text-black" : "bg-transparent text-white"
       )}
     >
       <div className="container flex items-center justify-around px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2" onClick={(e) => {
-            e.preventDefault();
-            scrollToTop();
-          }}
-          aria-label="American Soft"
-        >
-          <img src="/logo.png" alt="American Soft" className="h-7 sm:h-8" />
-        </a>
+
+             <a href="#" className="flex items-center gap-2" onClick={(e) => { e.preventDefault(); scrollToTop(); }} aria-label="American Soft"> 
+                <img  src="/logo.png"  alt="American Soft"  className="w-[150px] h-[150px] rounded-full"  />
+             </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-10">
@@ -94,10 +90,11 @@ const Navbar: React.FC = () => {
           <button
             className="RequestQuote"
             style={{
-              color: "black",
+              color: "white",
               backgroundColor: "red",
               padding: "10px",
               borderRadius: "25px",
+              fontWeight:900 , 
             }}
  
             onClick={open}
