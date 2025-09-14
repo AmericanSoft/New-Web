@@ -1,7 +1,7 @@
 import React from "react";
 import   "../i18";
 import { useTranslation } from "react-i18next";
-import Navbar from "@/components/Navbar";
+import SecNavbar from "@/components/SecNavbar";
 
 
 const BlogCard = () => {
@@ -15,7 +15,9 @@ const BlogCard = () => {
                   };
   return (
    <>
-       <section className="w-full pt-0 pb-8 sm:pb-12 bg-white mt-32" >
+
+   <SecNavbar/>
+    <section className="w-full pt-0 pb-8 sm:pb-12 bg-white mt-64" >
 
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         
@@ -28,7 +30,7 @@ const BlogCard = () => {
           </p>
         </div>
         
-        <div className="flex gap-5 ">
+        <div className="grid gap-5 sm:flex">
 
         <div className="rounded-2xl  grid align-center sm:rounded-3xl overflow-hidden shadow-elegant mx-auto max-w-4xl animate-on-scroll">
 

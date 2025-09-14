@@ -31,12 +31,7 @@ i18n
               startproject : " Start Your Project Now ", 
               portfolio : " View Our Project ",
               tech:" Tech Used " ,
-              leading:"Make your organization digital ",
-
-            
-
-
-            
+              leading:"Make your organization digital ", 
           } ,
 
           Services:
@@ -85,7 +80,8 @@ i18n
             headblog:"Blog - Learn about the most prominent technical topics ",
             titleblog:"Every day we have a new technology where innovation meets execution, and ideas turn into products.." ,
             articalblogtitle:" New AI tricks are coming your way!" , 
-            pragraphblogtitle:"Artificial intelligence has become a part of our daily lives—writing, summarizing, programming, and suggesting ideas. But the difference between an “average” result and a “wow!” result often lies not in the tool itself, but in how it is used. This article collects practical, proven tricks that will improve the quality of your output, whether you are a content creator, developer, or business owner."
+            pragraphblogtitle:"Artificial intelligence has become a part of our daily lives—writing, summarizing, programming, and suggesting ideas. But the difference between an “average” result and a “wow!” result often lies not in the tool itself, but in how it is used. This article collects practical, proven tricks that will improve the quality of your output, whether you are a content creator, developer, or business owner.",
+            readmore:"readmore ", 
 
           },
 
@@ -274,7 +270,8 @@ i18n
             headblog:"المدونة - تعرف علي ابرز المواضيع التقينة ",
             titleblog:"كل يوم لدينا تقنية جديدة حيث يلتقي الابتكار بالتنفيذ، وتتحول الأفكار إلى منتجات." ,
             articalblogtitle:" حيل جديدة من الذكاء الاصظناعي قادمة اليكم في الطريق " , 
-            pragraphblogtitle:"صار الذكاء الاصطناعي جزءًا من يومنا—يكتب، يلخّص، يبرمج، ويقترح أفكارًا. لكن الفرق بين نتيجة “عاديّة” ونتيجة “واو!” غالبًا مش في الأداة نفسها، بل في طريقة الاستخدام. هذه المقالة تجمع حِيلًا عملية مجرّبة ترفع جودة مخرجاتك، سواء كنت صانع محتوى، مطوّر، أو صاحب مشروع."
+            pragraphblogtitle:"صار الذكاء الاصطناعي جزءًا من يومنا—يكتب، يلخّص، يبرمج، ويقترح أفكارًا. لكن الفرق بين نتيجة “عاديّة” ونتيجة “واو!” غالبًا مش في الأداة نفسها، بل في طريقة الاستخدام. هذه المقالة تجمع حِيلًا عملية مجرّبة ترفع جودة مخرجاتك، سواء كنت صانع محتوى، مطوّر، أو صاحب مشروع.", 
+            readmore:"قراءة المزيد"
 
           },
 
