@@ -135,7 +135,7 @@ i18n
   badge: { web: "Web", mobile: "Mobile", seo: "SEO" },
   viewBtn: "View Project",
   error: "Failed to load projects."
-},
+          },
           
            whyam:
           {
@@ -162,6 +162,12 @@ i18n
             terms:"Terms " , 
             privacy:"Privacy", 
             social:"Follow On Socail Media" , 
+             company:"About Company ",
+            androidapp:" Android App",
+            ios:"IOS",
+            desktop:"Desktop ",
+            project:"Our Projects ",
+         
           }, 
           privacy: {
              lastUpdatedLabel: "Last updated:",
@@ -224,6 +230,7 @@ children: { p1: "Our services target adults; we do not knowingly collect data fr
 changes: { p1: "We may update this policy from time to time. Continued use means you accept the updated version; check the date above." },
 contact: { email: "americansoft8@gmail.com", phone: "+201000000000", address: "Egypt , Giza , Haram" }
           },
+
 
 
           faq: {
@@ -379,7 +386,158 @@ contact: { email: "americansoft8@gmail.com", phone: "+201000000000", address: "E
       address: "Address"
     }
   }
+          },
+
+          about: {
+  meta: {
+    brand: "American Soft",
+    company: "American Group for Software & Marketing",
+    email: "americansoft8@gmail.com",
+    phone: "+20 121 111 4528",
+    address: "Cairo, Egypt",
+    website: "https://americansoft.example.com"
+  },
+  seo: {
+    title: "About {{brand}}",
+    desc: "{{brand}} builds secure, fast, scalable software that drives growth and great user experience."
+  },
+  badge: "About Us",
+  title: "We turn ideas into reliable digital products",
+  subtitle:
+    "We’re a technology partner focused on outcomes—clean code, measurable SEO, and delightful UX. We combine engineering with growth to ship features faster and safer.",
+
+  highlights: [
+    "Custom software & web apps with clean, scalable architecture",
+    "Mobile apps (iOS/Android or cross-platform) with modern UX",
+    "Full-stack SEO: technical, on-page, content & internal links",
+    "Core Web Vitals & performance budgets across the stack",
+    "Secure cloud deployments, CI/CD and observability",
+    "Discovery, roadmaps, and analytics for measurable results"
+  ],
+
+  stats: {
+    items: [
+      { label: "Projects delivered", value: "120+" },
+      { label: "Avg. client satisfaction", value: "97%" },
+      { label: "Core Web Vitals pass rate", value: "90%+" },
+      { label: "Years of experience", value: "7+" }
+    ]
+  },
+
+  mission: {
+    title: "Our Mission",
+    desc: "Deliver high-quality software and SEO that accelerate growth while keeping code maintainable, secure, and future-proof."
+  },
+  vision: {
+    title: "Our Vision",
+    desc: "Become a trusted engineering partner in MENA—where business impact meets technical excellence."
+  },
+  values: {
+    title: "Values",
+    items: [
+      { title: "Ownership", desc: "We care about outcomes and take responsibility end-to-end." },
+      { title: "Clarity", desc: "Simple, documented, measurable work that ships." },
+      { title: "Quality", desc: "Clean code, strong UX, and sustainable SEO." }
+    ]
+  },
+
+  process: {
+    title: "How we work",
+    stepLabel: "Step {{n}}",
+    steps: [
+      { title: "Discovery & plan", desc: "Goals, audience, scope, risks, and a phased roadmap." },
+      { title: "Design & prototype", desc: "UX flows, UI patterns, and early validation with users." },
+      { title: "Build & iterate", desc: "Short sprints, CI/CD, tests, and observability." },
+      { title: "Launch & grow", desc: "Performance, SEO, analytics, and continuous improvement." }
+    ]
+  },
+
+  stack: {
+    title: "Tech we use",
+    items: ["React", "Next.js", "Tailwind", "Node.js", "NestJS", "PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "GCP", "Flutter"]
+  },
+
+  cta: {
+    title: "Ready to build?",
+    desc: "Tell us about your idea. We’ll reply with a clear plan, timeline, and estimate.",
+    btn: "Request a proposal"
+  },
+  contactLine: "Prefer a quick chat? Call"
+          },
+
+          service: {
+  android: {
+    badge: "Android Development",
+    title: "High-performance Android apps — built for scale",
+    subtitle: "Native or cross-platform Android apps with modern UI, offline support, and secure integrations.",
+    serviceType: "Android application development",
+    features: [
+      "Native (Kotlin) or cross-platform (Flutter/React Native)",
+      "Modern UI patterns (Material 3), responsive layouts",
+      "Offline mode, background sync, push notifications",
+      "Robust API integrations and secure auth",
+      "CI/CD, automated tests, and analytics"
+    ],
+    benefitsTitle: "Why Android with us?",
+    benefits: [
+      "Faster time-to-market with clean, maintainable code",
+      "Great performance and battery-aware design",
+      "Scalable architecture for future features",
+      "Release with monitoring, crash reporting, and KPIs"
+    ],
+    stackTitle: "Tech we use",
+    stack: ["Kotlin", "Jetpack", "Compose", "Flutter", "React Native", "Firebase", "Room", "Retrofit"],
+    cta: { title: "Ready to launch your Android app?", desc: "Tell us your idea and goals. We’ll propose the best approach and timeline.", btn: "Request a proposal" }
+  },
+  ios: {
+    badge: "iOS Development",
+    title: "Elegant iOS apps — performance and polish",
+    subtitle: "Swift-based iOS apps with delightful UX, secure data, and best-in-class performance.",
+    serviceType: "iOS application development",
+    features: [
+      "Native Swift/SwiftUI or cross-platform (Flutter/React Native)",
+      "Beautiful UI, accessibility, and motion design",
+      "Keychain, biometric auth, secure storage",
+      "App Store delivery, TestFlight, and analytics",
+      "CI/CD pipelines and QA automation"
+    ],
+    benefitsTitle: "Why iOS with us?",
+    benefits: [
+      "Pixel-perfect design aligned with Apple HIG",
+      "Smooth animations and energy-efficient delivery",
+      "Privacy-minded architecture and secure APIs",
+      "Measurable growth with product analytics"
+    ],
+    stackTitle: "Tech we use",
+    stack: ["Swift", "SwiftUI", "Combine", "UIKit", "Flutter", "React Native", "CoreData", "Alamofire"],
+    cta: { title: "Build a premium iOS experience", desc: "We’ll help you ship fast with quality and metrics from day one.", btn: "Start your project" }
+  },
+  desktop: {
+    badge: "Desktop Apps",
+    title: "Reliable desktop applications for business and pro users",
+    subtitle: "Cross-platform desktop apps with offline-first architecture and seamless updates.",
+    serviceType: "Desktop application development",
+    features: [
+      "Cross-platform (Electron/Tauri) or native",
+      "Auto-updates, crash reporting, and telemetry",
+      "Local database and sync conflict handling",
+      "Plugin-ready architecture and secure IPC",
+      "Theming, accessibility, and keyboard-first UX"
+    ],
+    benefitsTitle: "Why Desktop with us?",
+    benefits: [
+      "Rock-solid releases with CI/CD and QA suites",
+      "Optimized memory/CPU footprint and smooth UI",
+      "Modular architecture for long-term evolution",
+      "Enterprise security and signed installers"
+    ],
+    stackTitle: "Tech we use",
+    stack: ["Electron", "Tauri", "Node.js", "Rust", "C#", ".NET", "SQLite", "LevelDB"],
+    cta: { title: "Need a powerful desktop app?", desc: "Let’s plan features, roadmap, and the delivery pipeline together.", btn: "Request a proposal" }
+  }
 }
+
+
 
 
 
@@ -474,7 +632,7 @@ contact: { email: "americansoft8@gmail.com", phone: "+201000000000", address: "E
   badge: { web: "ويب", mobile: "هواتف", seo: "سيو" },
   viewBtn: "عرض المشروع",
   error: "تعذّر تحميل المشاريع."
-},
+          },
 
           testimonials :
           {
@@ -549,8 +707,13 @@ contact: { email: "americansoft8@gmail.com", phone: "+201000000000", address: "E
             faq:"الاسئلة الشائعة " ,
             privacy:"سياسة الخصوصية " , 
             terms:"الاتفاقيات و الشروط " , 
-           social:"تابعونا علي :" ,
-           help:"الدعم " ,
+            social:"تابعونا علي :" ,
+            help:"الدعم " ,
+            company:"عن الشركة",
+            androidapp:" اندرويد",
+            ios:"IOS",
+            desktop:"سطح المكتب ",
+            project:"اعمالنا",
           } , 
           privacy: {
 brand: "امريكان سوفت",
@@ -759,6 +922,159 @@ contact: { email: "البريد الإلكتروني", phone: "الهاتف", ad
     }
   }
           },
+
+          about: {
+  meta: {
+    brand: "American Soft",
+    company: "American Group for Software & Marketing",
+    email: "americansoft8@gmail.com",
+    phone: "+20 121 111 4528",
+    address: "مصر – القاهرة",
+    website: "https://americansoft.example.com"
+  },
+  seo: {
+    title: "عن {{brand}}",
+    desc: "{{brand}} تبني برمجيات آمنة وسريعة وقابلة للتوسّع تُحفّز نمو الأعمال وتجربة مستخدم رائعة."
+  },
+  badge: "من نحن",
+  title: "نحوّل الأفكار إلى منتجات رقمية موثوقة",
+  subtitle:
+    "شريك تقني يركز على النتائج—كود نظيف، سيو قابل للقياس، وتجربة استخدام محبوبة. نمزج بين الهندسة والنمو لنُطلق الميزات بسرعة وأمان.",
+
+  highlights: [
+    "برمجيات مخصّصة وتطبيقات ويب ببنية نظيفة قابلة للتوسّع",
+    "تطبيقات موبايل (iOS/Android أو Cross-platform) بتجربة عصرية",
+    "سيو متكامل: تقني، داخل الصفحة، محتوى وروابط داخلية",
+    "تحسين Core Web Vitals مع ميزانية أداء عبر الطبقات",
+    "نشر سحابي آمن، CI/CD ورصد مستمر",
+    "اكتشاف، خارطة طريق، وتحليلات لنتائج قابلة للقياس"
+  ],
+
+  stats: {
+    items: [
+      { label: "مشاريع مُسلّمة", value: "120+" },
+      { label: "رضا العملاء", value: "97%" },
+      { label: "اجتياز Core Web Vitals", value: "90%+" },
+      { label: "سنوات خبرة", value: "7+" }
+    ]
+  },
+
+  mission: {
+    title: "مهمّتنا",
+    desc: "تقديم برمجيات وسيو عالي الجودة يسرّع النمو مع الحفاظ على كود قابل للصيانة وآمن وقابل للتوسّع."
+  },
+  vision: {
+    title: "رؤيتنا",
+    desc: "أن نكون الشريك الهندسي الأكثر ثقة في المنطقة—حيث الأثر التجاري يلتقي بالتميّز التقني."
+  },
+  values: {
+    title: "القيم",
+    items: [
+      { title: "المسؤولية", desc: "نهتم بالنتائج ونتحمّل المسؤولية من البداية للنهاية." },
+      { title: "الوضوح", desc: "عمل بسيط موثّق قابل للقياس ويصل بسرعة." },
+      { title: "الجودة", desc: "كود نظيف، تجربة قوية، وسيو مستدام." }
+    ]
+  },
+
+  process: {
+    title: "كيف نعمل",
+    stepLabel: "الخطوة {{n}}",
+    steps: [
+      { title: "اكتشاف وخطة", desc: "أهداف، جمهور، نطاق، مخاطر، وخارطة طريق مرحلية." },
+      { title: "تصميم ونمذجة", desc: "تدفقات UX، أنماط UI، وتحقق مبكّر مع المستخدمين." },
+      { title: "بناء وتكرار", desc: "سبرنتات قصيرة، CI/CD، اختبارات ورصد مستمر." },
+      { title: "إطلاق ونمو", desc: "أداء، سيو، تحليلات، وتحسين مستمر." }
+    ]
+  },
+
+  stack: {
+    title: "التقنيات المستخدمة",
+    items: ["React", "Next.js", "Tailwind", "Node.js", "NestJS", "PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "GCP", "Flutter"]
+  },
+
+  cta: {
+    title: "جاهز نبدأ؟",
+    desc: "احكِ لنا فكرتك. نرجع لك بخطة تنفيذ واضحة، جدول زمني، وتكلفة تقديرية.",
+    btn: "اطلب عرض سعر"
+  },
+  contactLine: "تحب مكالمة سريعة؟ اتصل على"
+          },
+
+          service: {
+  android: {
+    badge: "تطوير Android",
+    title: "تطبيقات أندرويد عالية الأداء — قابلة للتوسّع",
+    subtitle: "تطبيقات أندرويد أصلية أو هجينة بواجهات عصرية، دعم العمل دون اتصال، وتكاملات آمنة.",
+    serviceType: "تطوير تطبيقات أندرويد",
+    features: [
+      "تطوير Native (Kotlin) أو Cross-platform (Flutter/React Native)",
+      "واجهات حديثة (Material 3) وتخطيطات متجاوبة",
+      "وضع أوفلاين، مزامنة خلفية، وإشعارات",
+      "تكاملات API قوية وتوثيق آمن",
+      "CI/CD واختبارات وتحليلات أداء"
+    ],
+    benefitsTitle: "لماذا أندرويد معنا؟",
+    benefits: [
+      "إطلاق أسرع بكود نظيف سهل الصيانة",
+      "أداء قوي وتصميم واعٍ للبطارية",
+      "بنية قابلة للتوسّع لإضافة الميزات مستقبلًا",
+      "إطلاق مع مراقبة وتقارير أعطال ومؤشرات أداء"
+    ],
+    stackTitle: "التقنيات المستخدمة",
+    stack: ["Kotlin", "Jetpack", "Compose", "Flutter", "React Native", "Firebase", "Room", "Retrofit"],
+    cta: { title: "جاهز تطلق تطبيق أندرويد؟", desc: "احكِ لنا فكرتك وأهدافك، ونقترح أفضل نهج وخطة زمنية.", btn: "اطلب عرض سعر" }
+  },
+  ios: {
+    badge: "تطوير iOS",
+    title: "تطبيقات iOS أنيقة — أداء ولمسات احترافية",
+    subtitle: "تطبيقات iOS بـ Swift وتجربة استخدام ممتعة، بيانات آمنة، وأداء فائق.",
+    serviceType: "تطوير تطبيقات iOS",
+    features: [
+      "Native Swift/SwiftUI أو Cross-platform (Flutter/React Native)",
+      "واجهات جميلة، إتاحة، وحركات سلسة",
+      "Keychain وبصمة/وجه وتخزين آمن",
+      "نشر عبر App Store و TestFlight وتحليلات",
+      "خطوط CI/CD وأتمتة اختبارات"
+    ],
+    benefitsTitle: "لماذا iOS معنا؟",
+    benefits: [
+      "تصميم دقيق متوافق مع إرشادات Apple",
+      "حركات سلسة واستهلاك طاقة محسّن",
+      "خصوصية في المعمارية وتكاملات API آمنة",
+      "نمو قابل للقياس بتحليلات المنتج"
+    ],
+    stackTitle: "التقنيات المستخدمة",
+    stack: ["Swift", "SwiftUI", "Combine", "UIKit", "Flutter", "React Native", "CoreData", "Alamofire"],
+    cta: { title: "ابنِ تجربة iOS مميزة", desc: "نساعدك تطلق بسرعة وبجودة ومؤشرات منذ اليوم الأول.", btn: "ابدأ مشروعك" }
+  },
+  desktop: {
+    badge: "تطبيقات سطح المكتب",
+    title: "تطبيقات سطح مكتب موثوقة للأعمال والمحترفين",
+    subtitle: "تطبيقات متعددة المنصات ببنية Offline-first وتحديثات سلسة.",
+    serviceType: "تطوير تطبيقات سطح المكتب",
+    features: [
+      "متعدد المنصات (Electron/Tauri) أو Native",
+      "تحديثات تلقائية وتقارير أعطال وتتبع",
+      "قاعدة بيانات محلية ومعالجة تعارضات المزامنة",
+      "بنية قابلة للإضافات وواجهات IPC آمنة",
+      "ثيمات وإتاحة وتجربة تعتمد على لوحة المفاتيح"
+    ],
+    benefitsTitle: "لماذا سطح المكتب معنا؟",
+    benefits: [
+      "إصدارات مستقرة مع CI/CD وحزم اختبارات",
+      "بصمة ذاكرة/معالج محسّنة وتجربة سلسة",
+      "معمارية معيارية للتطوّر طويل المدى",
+      "أمان مؤسسي ومثبّتات موقّعة"
+    ],
+    stackTitle: "التقنيات المستخدمة",
+    stack: ["Electron", "Tauri", "Node.js", "Rust", "C#", ".NET", "SQLite", "LevelDB"],
+    cta: { title: "تحتاج تطبيق سطح مكتب قوي؟", desc: "خلّينا نخطّط الميزات وخارطة الطريق ومسار التسليم.", btn: "اطلب عرض سعر" }
+  }
+          },
+
+
+
+          
 
 
 

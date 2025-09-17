@@ -19,6 +19,11 @@ import AmericanSoftFAQ from './pages/faq.tsx'
 import TermsPage from "./pages/Terms.tsx";
 import PrivacyPolicyPage from "./pages/privacy.tsx";
 import BlogArticleRoute from "./pages/BlogArticleRoute.tsx";
+import AboutPage from "./pages/aboutcompany.tsx";
+import IOSAppPage from "./pages/IOSAppPage.tsx";
+import DesktopAppPage from "./pages/DesktopAppPage.tsx";
+import AllProjectsPage from "./pages/AllProjectsPage.tsx";
+import AndroidAppPage from "./pages/AndroidAppPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +74,12 @@ const App = () => (
             <Route path="/terms" element={<TermsPage/>}/>
 
             <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/android" element={<AndroidAppPage />} />
+            <Route path="/ios" element={<IOSAppPage />} />
+            <Route path="/desktop" element={<DesktopAppPage />} />
+            <Route path="/projects" element={<AllProjectsPage />} />
+
             
 
 

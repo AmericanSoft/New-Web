@@ -223,5 +223,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/*************footer End*****************/
+@media (max-width: 768px) {
+  .row {
+    display: grid;
+    text-align: center;
+
+  }
+  #col1,#col2,#col3
+  {
+    padding-top: 2em;
+  }
+  .new_footer_top .footer_bg .footer_bg_two
+  {
+    width: 89px;
+    height: 98px;
+  }
+}
 

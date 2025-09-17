@@ -61,7 +61,7 @@ const SecNavbar: React.FC = () => {
         {/* Logo */}
 
              <NavLink to="/" className="flex items-center gap-2"  aria-label="American Soft"> 
-                <img  src="/logo.png"  alt="American Soft"  className="w-[150px] h-[150px] rounded-full"  />
+                <img  src="/logo.png"  alt="American Soft"  className="w-[50px] h-[50px] rounded-full"  />
              </NavLink>
 
         {/* Desktop Navigation */}
