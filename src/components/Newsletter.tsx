@@ -37,7 +37,7 @@ const Newsletter = () => {
       setIsSubmitting(false);
     }, 1000);
   };
-  return <section id="newsletter" className="bg-white py-0">
+  return <section id="newsletter" className="bg-white pt-32 pb-16">
       <div className="section-container opacity-0 animate-on-scroll">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-4 mb-6">

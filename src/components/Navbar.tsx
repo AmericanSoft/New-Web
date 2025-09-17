@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
         {/* Logo */}
 
              <a href="#" className="flex items-center gap-2" onClick={(e) => { e.preventDefault(); scrollToTop(); }} aria-label="American Soft"> 
-                <img  src="/logo.png"  alt="American Soft"  className="w-[150px] h-[150px] rounded-full"  />
+                <img  src="/logo.png"  alt="American Soft"  className="w-[50px] h-[50px] rounded-full"  />
              </a>
 
         {/* Desktop Navigation */}

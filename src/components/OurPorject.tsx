@@ -1,248 +1,288 @@
-import { useEffect, useState } from "react";
-import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react";
-import { ArrowRight } from "lucide-react";
-import LottieAnimation from "./LottieAnimation";
-import   "../i18";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import "../i18";
 import { useTranslation } from "react-i18next";
 
-
-
 type Project = {
-  id: string | number;
+  id: number | string;
   title: string;
-  description?: string;
-  main_image?: string;
+  description: string;
+  image: string;
+  category: "web" | "mobile" | "seo" | string;
+  url?: string;
 };
 
-const OPTIONS: EmblaOptionsType = { loop: true, align: "start" };
+type Mode = "wordpress" | "json";
 
-const OurPorject = () => {
+type Props = {
+  rtl?: boolean;
+  mode: Mode;
 
-     const { t , i18n } = useTranslation();
-           
-             const changLang = () => {
-               const newLang = i18n.language === "ar" ? "en" : "ar";
-               i18n.changeLanguage(newLang);
-               localStorage.setItem("lang", newLang);
-             };
-   
+  // WordPress
+  wpBase?: string;
+  categories?: { web: string; mobile: string; seo: string };
+  perPage?: number;
+  useProxy?: boolean;
 
+  // JSON
+  jsonUrl?: string;
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  // internal details route
+  internalLinkBase?: string;
+};
 
-  const [lottieData, setLottieData] = useState<any>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+// proxy (dev only)
+const proxify = (url: string) =>
+  `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
 
-  useEffect(() => {
-    fetch("https://american-softwares.com/api/public/index.php/api/projects")
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects((data?.data ?? data) as Project[]);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  useEffect(() => {
-    fetch("/loop-header.lottie")
-      .then((r) => r.json())
-      .then(setLottieData)
-      .catch(() => {});
-  }, []);
-
-  // Embla: selected index + snaps (للـ dots)
-  useEffect(() => {
-    if (!emblaApi) return;
-    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
-    const onReInit = () => {
-      setScrollSnaps(emblaApi.scrollSnapList());
-      onSelect();
-    };
-    onReInit();
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onReInit);
-    return () => {
-      emblaApi.off("select", onSelect);
-      emblaApi.off("reInit", onReInit);
-    };
-  }, [emblaApi]);
-
-  const onTiltMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    if (isMobile) return;
-    const card = e.currentTarget;
-    const img = card.querySelector("img") as HTMLImageElement | null;
-    if (!img) return;
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    img.style.transform = `perspective(1000px) rotateY(${x * 2.5}deg) rotateX(${-y * 2.5}deg) scale3d(1.02,1.02,1.02)`;
-  };
-  const onTiltLeave: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    const img = e.currentTarget.querySelector("img") as HTMLImageElement | null;
-    if (img) img.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)`;
-  };
-
-  if (loading) {
-    return (
-      <section className="py-20 text-center text-white/80">Loading…</section>
-    );
+async function fetchJsonViaProxy<T = any>(url: string, useProxy?: boolean): Promise<T> {
+  if (!useProxy) {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+    return (await r.json()) as T;
   }
+  const res = await fetch(proxify(url));
+  if (!res.ok) throw new Error("Proxy fetch error");
+  const data = await res.json();
+  return JSON.parse(data.contents) as T;
+}
+
+// WP helpers
+async function wpGetCategoryId(base: string, slug: string, useProxy?: boolean) {
+  const url = `${base}/wp-json/wp/v2/categories?slug=${encodeURIComponent(slug)}`;
+  const cats = await fetchJsonViaProxy<any[]>(url, useProxy);
+  return cats?.[0]?.id as number | undefined;
+}
+
+async function wpFetchProjects(base: string, catIds: number[], perPage = 12, useProxy?: boolean) {
+  const url = `${base}/wp-json/wp/v2/posts?categories=${catIds.join(",")}&_embed&per_page=${perPage}`;
+  return await fetchJsonViaProxy<any[]>(url, useProxy);
+}
+
+function wpMapToProject(post: any, catKey: string): Project {
+  const image =
+    post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    post?.yoast_head_json?.og_image?.[0]?.url ||
+    "/project.png";
+  const title = (post?.title?.rendered || "").replace(/<[^>]+>/g, "");
+  const description = (post?.excerpt?.rendered || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return {
+    id: post.id,
+    title,
+    description,
+    image,
+    category: catKey,
+    url: post.link,
+  };
+}
+
+// ثوابت الفلاتر (المفاتيح فقط — الليبل من i18n)
+const TAB_KEYS = ["all", "web", "mobile", "seo"] as const;
+type TabKey = typeof TAB_KEYS[number];
+
+export default function OurProject({
+  rtl,
+  mode,
+  wpBase,
+  categories,
+  perPage = 12,
+  useProxy = true,
+  jsonUrl,
+  internalLinkBase,
+}: Props) {
+  const { t, i18n } = useTranslation();
+  const isAr = rtl ?? i18n.language?.startsWith("ar");
+  const dir = isAr ? "rtl" : "ltr";
+
+  const [active, setActive] = useState<TabKey>("all");
+  const [allProjects, setAllProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState<string | null>(null);
+
+  // labels من i18n
+  const TAB_LABELS = useMemo(
+    () => ({
+      all: t("projects.tabs.all"),
+      web: t("projects.tabs.web"),
+      mobile: t("projects.tabs.mobile"),
+      seo: t("projects.tabs.seo"),
+    }),
+    [t]
+  );
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        setErr(null);
+
+        if (mode === "json") {
+          if (!jsonUrl) throw new Error("jsonUrl is required in json mode");
+          const data = await fetchJsonViaProxy<Project[]>(jsonUrl, useProxy);
+          setAllProjects(data);
+        } else {
+          if (!wpBase || !categories)
+            throw new Error("wpBase & categories are required in wordpress mode");
+
+          const [webId, mobileId, seoId] = await Promise.all([
+            wpGetCategoryId(wpBase, categories.web, useProxy),
+            wpGetCategoryId(wpBase, categories.mobile, useProxy),
+            wpGetCategoryId(wpBase, categories.seo, useProxy),
+          ]);
+          const ids = [webId, mobileId, seoId].filter(Boolean) as number[];
+          if (!ids.length) throw new Error("No category IDs found");
+
+          const posts = await wpFetchProjects(wpBase, ids, perPage, useProxy);
+
+          const idToKey: Record<number, "web" | "mobile" | "seo"> = {};
+          if (webId) idToKey[webId] = "web";
+          if (mobileId) idToKey[mobileId] = "mobile";
+          if (seoId) idToKey[seoId] = "seo";
+
+          const mapped: Project[] = posts.map((p) => {
+            let key: "web" | "mobile" | "seo" = "web";
+            const cats = (p?.categories || []) as number[];
+            for (const c of cats) {
+              if (idToKey[c]) {
+                key = idToKey[c];
+                break;
+              }
+            }
+            return wpMapToProject(p, key);
+          });
+
+          setAllProjects(mapped);
+        }
+      } catch (e: any) {
+        setErr(e?.message || "Failed to load projects");
+        setAllProjects([]);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [mode, jsonUrl, wpBase, JSON.stringify(categories), perPage, useProxy]);
+
+  const filtered = useMemo(() => {
+    if (active === "all") return allProjects;
+    return allProjects.filter((p) => p.category === active);
+  }, [active, allProjects]);
 
   return (
-    <section
-      id="ourproject"
-      className="overflow-hidden relative bg-cover"
-      style={{
-        backgroundImage: 'url("/text-mask-image.jpg")',
-        backgroundPosition: "center 30%",
-        padding: isMobile ? "100px 12px 40px" : "120px 20px 60px",
-      }}
-    >
-      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-red-gradient opacity-20 blur-3xl rounded-full" />
+    <section dir={dir} className="w-full bg-white py-10" id="ourproject">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <header className="mb-6 sm:mb-8 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
+            {t("projects.title")}
+          </h2>
+          <p className="mt-2 text-slate-600">{t("projects.subtitle")}</p>
+        </header>
 
-      <div className="container px-4 sm:px-6 lg:px-8">
-        <div
-          className="mb-8 inline-flex items-center gap-2 rounded-full bg-white/10 text-white px-3 py-1 text-sm backdrop-blur"
-          style={{ animationDelay: "0.1s" }}
-        >
-          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white p-3">
-            03
-          </span>
-          <span>{t("project.ourproject")} </span>
+        {/* Filters */}
+        <div className="mb-6 flex flex-wrap gap-2 justify-center">
+          {TAB_KEYS.map((key) => {
+            const activeTab = active === key;
+            return (
+              <button
+                key={key}
+                onClick={() => setActive(key)}
+                className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                  activeTab
+                    ? "border-red-600 bg-red-50 text-red-700"
+                    : "border-red-200 bg-white text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {TAB_LABELS[key]}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Embla */}
-        <div className="embla">
-          <div className="embla__viewport overflow-hidden" ref={emblaRef}>
-            <div className="embla__container flex">
-              {projects.map((project, i) => {
-                const isActive = i === selectedIndex;
-                return (
-                  <div
-                    className="embla__slide flex-[0_0_100%] min-w-0 px-1 sm:px-2"
-                    key={project.id}
-                  >
-                    {/* محتوى السلايد مع Fade/Scale/Translate */}
-                    <div
-                      className={[
-                        "transition-all duration-500 ease-out will-change-transform will-change-opacity",
-                        isActive
-                          ? "opacity-100 translate-y-0 scale-100"
-                          : "opacity-0 translate-y-3 scale-[0.98]",
-                      ].join(" ")}
-                    >
-                      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
-                        {/* النص */}
-                        <div className="w-full lg:w-1/2">
-                          <h1
-                            className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight text-white"
-                            style={{ animationDelay: "0.3s" }}
-                          >
-                            {project.title}
-                          </h1>
-
-                          <p className="mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed text-white/90 font-normal text-base sm:text-lg ">
-                            {project.description}
-                          </p>
-
-                          <div className="flex flex-col sm:flex-row gap-4">
-                            <a
-                              href={`projects/${project.id}`}
-                              className="flex items-center justify-center group w-full sm:w-auto text-center
-                                         rounded-full border border-white bg-white text-black
-                                         text-sm font-medium px-5 py-3 shadow hover:shadow-lg transition"
-                            >
-                              {t("project.btn")}
-
-
-                              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                            </a>
-                          </div>
-                        </div>
-
-                        {/* الصورة / لوتّي */}
-                        <div className="w-full lg:w-1/2 relative mt-6 lg:mt-0">
-                          {lottieData ? (
-                            <div className="relative z-10">
-                              <LottieAnimation
-                                animationPath={lottieData}
-                                className="w-full h-auto max-w-lg mx-auto"
-                                loop
-                                autoplay
-                              />
-                            </div>
-                          ) : (
-                            <>
-                              <div className="absolute inset-0 bg-dark-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl" />
-                              <div
-                                className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl bg-white/5 backdrop-blur"
-                                onMouseMove={onTiltMove}
-                                onMouseLeave={onTiltLeave}
-                              >
-                                <img
-                                  src={project.main_image || "/project.png"}
-                                  alt={project.title}
-                                  className="w-full h-auto object-cover transition-transform duration-500 ease-out"
-                                  style={{ transformStyle: "preserve-3d" }}
-                                />
-                                <div
-                                  className="absolute inset-0"
-                                  style={{
-                                    backgroundImage: 'url("/hero-image.jpg")',
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
-                                    mixBlendMode: "overlay",
-                                    opacity: 0.5,
-                                  }}
-                                />
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Dots */}
-          <div className="mt-8 flex items-center justify-center gap-2">
-            {scrollSnaps.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => emblaApi?.scrollTo(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className={[
-                  "h-2.5 rounded-full transition-all duration-300",
-                  i === selectedIndex
-                    ? "w-6 bg-white shadow"
-                    : "w-2.5 bg-white/40 hover:bg-white/70",
-                ].join(" ")}
-              />
+        {/* Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Loading skeletons */}
+          {loading &&
+            Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={`sk-${i}`}
+                className="rounded-2xl overflow-hidden shadow-elegant bg-white animate-pulse"
+              >
+                <div className="w-full h-44 bg-slate-100" />
+                <div className="p-5 space-y-3">
+                  <div className="h-6 bg-slate-100 rounded w-3/4" />
+                  <div className="h-4 bg-slate-100 rounded w-full" />
+                  <div className="h-4 bg-slate-100 rounded w-5/6" />
+                  <div className="h-9 bg-slate-100 rounded w-32 mt-3" />
+                </div>
+              </div>
             ))}
-          </div>
+
+          {/* Error */}
+          {!loading && err && (
+            <div className="sm:col-span-2 lg:col-span-3 text-center text-red-600">
+              {t("projects.error")}
+              <div className="text-sm text-slate-500 mt-1">{err}</div>
+            </div>
+          )}
+
+          {/* Cards */}
+          {!loading &&
+            !err &&
+            filtered.map((p) => {
+              const body =
+                p.description?.length > 160
+                  ? p.description.slice(0, 160) + "…"
+                  : p.description;
+
+              const Btn = p.url
+                ? (props: React.HTMLProps<HTMLAnchorElement>) => (
+                    <a {...props} href={p.url} target="_blank" rel="noopener noreferrer" />
+                  )
+                : internalLinkBase
+                ? (props: React.HTMLProps<HTMLAnchorElement>) => (
+                    <Link {...(props as any)} to={`${internalLinkBase}/${p.id}`} />
+                  )
+                : (props: React.HTMLProps<HTMLAnchorElement>) => <span {...props} />;
+
+              return (
+                <article
+                  key={p.id}
+                  className="rounded-2xl overflow-hidden shadow-elegant bg-white flex flex-col"
+                >
+                  <div className="w-full">
+                    <img
+                      src={p.image || "/project.png"}
+                      alt={p.title}
+                      className="w-full h-44 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-5 flex-1">
+                    <div className="mb-2">
+                      <span className="rounded-full border border-slate-200 px-2.5 py-0.5 text-[11px] font-semibold text-slate-700 bg-white/60">
+                        {t(`projects.badge.${p.category as "web" | "mobile" | "seo"}`, {
+                          defaultValue: p.category,
+                        })}
+                      </span>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-slate-900">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-slate-700 text-sm">{body}</p>
+                  </div>
+                  <div className={isAr ? "pr-5 pb-5" : "pl-5 pb-5"}>
+                    <Btn className="inline-block text-black hover:text-white border border-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-200 font-medium rounded-lg text-sm px-4 py-2">
+                      {t("projects.viewBtn")}
+                    </Btn>
+                  </div>
+                </article>
+              );
+            })}
         </div>
       </div>
-
-      <div
-        className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-red-100/30 rounded-full blur-3xl -z-10"
-        data-speed="0.05"
-      />
     </section>
   );
-};
-
-export default OurPorject;
+}

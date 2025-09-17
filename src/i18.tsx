@@ -128,10 +128,14 @@ i18n
 
           },
 
-          project:{
-            ourproject:"Our Project " ,
-            btn:"View Full Project"
-          },
+          projects: {
+  title: "Our Projects",
+  subtitle: "Browse our web, mobile and SEO work with quick filters.",
+  tabs: { all: "All", web: "Web", mobile: "Mobile", seo: "SEO" },
+  badge: { web: "Web", mobile: "Mobile", seo: "SEO" },
+  viewBtn: "View Project",
+  error: "Failed to load projects."
+},
           
            whyam:
           {
@@ -149,7 +153,7 @@ i18n
           },
           footer:{
             getin: "Get Connect " , 
-            dontmiss:"Sbscribe Now and Don't Miss Best Offer" , 
+            dontmiss:"Subscribe Now and Don't Miss Best Offer" , 
             mail:"Your Mail " , 
             subscribe:"Subscribe Now ", 
             pages:"Pages" , 
@@ -158,7 +162,226 @@ i18n
             terms:"Terms " , 
             privacy:"Privacy", 
             social:"Follow On Socail Media" , 
-          }
+          }, 
+          privacy: {
+             lastUpdatedLabel: "Last updated:",
+             lastUpdatedFallback: "Sep 16, 2025",
+             tocTitle: "Table of Contents",
+             headerTitle:"Privacy Policy - American Soft",
+             email:"email",
+             phone:"phone number ",
+             address:"Address",
+              toc: {
+                  intro: "Introduction",
+                  data: "Data We Collect",
+                  use: "How We Use Your Data",
+                  legal: "Legal Bases",
+                  cookies: "Cookies & Tracking",
+                  analytics: "Analytics & Third-Party Tools",
+                  sharing: "Data Sharing",
+retention: "Data Retention",
+security: "Security",
+international: "International Transfers",
+rights: "Your Rights",
+children: "Children's Data",
+changes: "Changes to this Policy",
+contact: "Contact Us"
+                 },
+intro: {
+p1: "At <strong>American Softwares</strong> , we are committed to protecting your privacy. This policy explains what data we collect, how we use it, and your choices. By using our site/services you agree to this policy."
+},
+data: {
+li1: "<strong>Contact data:</strong> name, email, phone, company.",
+li2: "<strong>Usage data:</strong> pages visited, session duration, referrals, engagement.",
+li3: "<strong>Forms/uploads:</strong> content you submit via forms or files.",
+li4: "<strong>Cookies/device IDs:</strong> for performance and personalization."
+},
+use: {
+li1: "Provide and improve services and support.",
+li2: "Analyze performance and UX; measure marketing effectiveness.",
+li3: "Send relevant updates or offers (you can unsubscribe anytime).",
+li4: "Comply with legal obligations and respond to official requests."
+},
+legal: { p1: "We rely on contract performance, explicit consent, legitimate interests (service improvement, security), and legal obligations." },
+cookies: { p1: "We use cookies/localStorage and similar identifiers to enable core functions and analyze usage. Manage preferences via your browser or our cookie banner (if available)." },
+analytics: { p1: "We may use tools like Google Analytics and Search Console. These tools process usage data under their own policies; you can limit tracking via browser add‑ons." },
+sharing: {
+li1: "Service providers (hosting, email, analytics) under data‑protection agreements.",
+li2: "Where required by law or regulators.",
+li3: "In mergers/acquisitions with appropriate notice."
+},
+retention: { p1: "We retain data only as long as necessary for the stated purposes or as required by law, then delete or anonymize it securely." },
+security: { p1: "We apply appropriate technical/organizational measures (encryption, access control, backups) to protect data." },
+international: { p1: "Some data may be transferred to servers/providers outside your country with appropriate safeguards." },
+rights: {
+li1: "Access, correct, or request deletion of your data.",
+li2: "Object to or restrict processing in certain cases.",
+li3: "Withdraw consent where processing is based on consent.",
+li4: "Data portability where applicable.",
+cta: "To exercise your rights, contact us at"
+},
+children: { p1: "Our services target adults; we do not knowingly collect data from children. If you believe a child provided data, please contact us." },
+changes: { p1: "We may update this policy from time to time. Continued use means you accept the updated version; check the date above." },
+contact: { email: "americansoft8@gmail.com", phone: "+201000000000", address: "Egypt , Giza , Haram" }
+          },
+
+
+          faq: {
+  title: "Frequently Asked Questions — American Soft",
+  subtitle:
+    "Clear, concise answers covering SEO, content, UX, performance, and development—aligned with search intent and Google updates.",
+  searchLabel: "Search FAQs",
+  searchPlaceholder: "Search: SEO, content plan, speed, migration…",
+  noResults: "No matching results.",
+  items: [
+    {
+      q: "What are American Soft’s core services? Do you support Arabic and English?",
+      a: "We deliver an integrated stack: full SEO (technical/content/internal links), long-term content strategy, UX and speed optimization, schema setup, GA4/Search Console tracking, and WordPress/React front-end development. We fully support both Arabic and English."
+    },
+    {
+      q: "How long until SEO results start to show with American Soft?",
+      a: "You typically see early indicators in 4–8 weeks (impressions & visits trending up), with stronger growth in 3–6 months for competitive pages. Timelines vary by competition, content quality, and site history."
+    },
+    {
+      q: "Do you rely on AI to write content?",
+      a: "We use AI as an assistive tool only—every piece is human-edited, sourced, and aligned with E-E-A-T and your brand voice."
+    },
+    {
+      q: "How do you run a Technical SEO audit at American Soft?",
+      a: "We check crawl/indexing, sitemaps, hreflang, internal linking, speed and Core Web Vitals, schema, orphan pages, and technical conflicts. You receive a prioritized action plan and implementation roadmap."
+    },
+    {
+      q: "Do you build full Topic Clusters?",
+      a: "Yes. We create layered clusters (pillar pages + supporting articles), multi-intent coverage, FAQs, and smart internal links. We map short/long-tail keywords and synonyms to cover the market comprehensively."
+    },
+    {
+      q: "What is your link-building policy?",
+      a: "We focus on strong internal links and great UX; we avoid manipulative backlink tactics. We prefer editorial partnerships, brand mentions, and naturally earned links from high-value content."
+    },
+    {
+      q: "Do you provide regular performance reports?",
+      a: "Yes—monthly reports including keyword growth, organic traffic, top pages, indexing issues, and content plan progress, with actionable recommendations."
+    },
+    {
+      q: "Do you build fast sites that pass Core Web Vitals?",
+      a: "Yes. We apply performance best practices (image optimization, smart caching, lazy loading, clean code) and track CLS/LCP/INP for a smooth experience."
+    },
+    {
+      q: "What CMS do you prefer? Do you support WooCommerce?",
+      a: "WordPress is our first choice for flexibility and SEO. We fully support WooCommerce with custom themes, shortcodes, Google Sheets integrations, and Rank Math/Yoast setups."
+    },
+    {
+      q: "Do you offer Local SEO (targeting specific areas)?",
+      a: "Yes. We build location pages aligned with search intent, optimize Google Business Profiles, and create local content (e.g., Cairo, Giza, New Cairo), with LocalBusiness structured data."
+    },
+    {
+      q: "How do you handle Google updates (SGE / Helpful Content)?",
+      a: "We design evergreen content, prioritize reader experience, strong structure (H2/H3/tables), direct answers, and FAQ/Article/Service schema—reviewed regularly for updates."
+    },
+    {
+      q: "What are your contract terms and payment options?",
+      a: "Usually monthly plans with flexible contracts, clear goals and KPIs. Electronic payments and official invoicing are provided."
+    },
+    {
+      q: "Do you write service pages and FAQ pages?",
+      a: "Yes—SEO-optimized service pages with unique, varied FAQs, smart internal linking, CTAs, and structured data."
+    },
+    {
+      q: "Can you migrate our site and improve its structure without losing indexing?",
+      a: "Yes—with a migration plan including 301 maps, internal link checks, schema updates, and Search Console testing pre/post launch."
+    },
+    {
+      q: "What makes American Soft different?",
+      a: "We merge engineering and SEO: clean code, optimized React/Tailwind components, high-quality long-form content, and measurable outcomes."
+    },
+    {
+      q: "How do we get started?",
+      a: "Contact us for a free assessment: we review your site, identify gaps, and deliver a step-by-step roadmap with priorities and expected timelines."
+    }
+  ]
+          },
+
+          terms: {
+  brand: "American Soft",
+  company: "American Group for Software & Marketing",
+  email: "americansoft8@gmail.com",
+  address: "Cairo, Egypt",
+  phone: "+20 121 111 4528",
+  lastUpdatedFallback: "Sep 16, 2025",
+
+  headerTitle: "Terms & Conditions — {{brand}}",
+  lastUpdatedLabel: "Last updated:",
+  tocTitle: "Table of Contents",
+  toc: {
+    acceptance: "Acceptance of Terms",
+    definitions: "Definitions",
+    scope: "Scope of Service",
+    accounts: "Accounts & Privacy",
+    payments: "Payments & Billing",
+    content: "Content & Intellectual Property",
+    acceptableUse: "Acceptable Use & Prohibited Practices",
+    warranty: "Disclaimer of Warranties",
+    liability: "Limitation of Liability",
+    changes: "Changes to the Terms",
+    termination: "Termination",
+    law: "Governing Law & Dispute Resolution",
+    contact: "Contact Us"
+  },
+
+  sections: {
+    acceptance: {
+      p1: "By using the websites and services of <strong>American Softwares</strong> , you agree to these Terms & Conditions and the Privacy Policy. If you do not agree to any part, please discontinue use of the site and service."
+    },
+    definitions: {
+      li1: "<strong>Service:</strong> includes SEO, content writing, front-end/WordPress development, performance/speed optimization, and consulting.",
+      li2: "<strong>Client:</strong> any person or entity that contracts with us to receive the Service.",
+      li3: "<strong>Content:</strong> texts, images, code, designs, files, and materials created or published within the project."
+    },
+    scope: {
+      p1: "The scope is defined in a technical/financial proposal or a separate purchase order/contract including requirements, deliverables, delivery schedule, and responsibilities. Any extra work outside scope requires a new agreement with time/cost adjustments."
+    },
+    accounts: {
+      p1: "Providing the Service may require access to the Client’s tools (e.g., WordPress, Google Search Console, Analytics, Facebook Business Manager). Both parties must keep access and data confidential. Data collection/use follows our Privacy Policy."
+    },
+    payments: {
+      li1: "Fees are paid as per the proposal/contract and agreed payment milestones.",
+      li2: "Fees for SEO hours/packages or development are non-refundable after commencement.",
+      li3: "Prices may include applicable taxes and transfer/processing fees depending on country and payment method."
+    },
+    content: {
+      li1: "Ownership of original materials supplied by the Client remains with the Client.",
+      li2: "The Client is granted a license to use deliverables we create upon full settlement of dues.",
+      li3: "Removing copyright notices or reselling templates/code without written permission is prohibited."
+    },
+    acceptableUse: {
+      li1: "You must not use the Service for unlawful activities or to infringe others’ rights.",
+      li2: "We reject misleading SEO practices (Spam/Bulk Backlinks/Hidden Text, etc.).",
+      li3: "The Client must provide accurate, non-infringing data and content."
+    },
+    warranty: {
+      p1: "Services are provided “as is” and “as available” without express or implied warranties. We do not guarantee top rankings or specific results within fixed timelines due to market variability and search engine updates."
+    },
+    liability: {
+      p1: "To the extent permitted by law, <strong>American Softwares </strong> is not liable for indirect or consequential damages or loss of profits arising from use of the Service. In all cases, our total liability shall not exceed the amounts paid for the Service during the last three months."
+    },
+    changes: {
+      p1: "We may update these Terms from time to time. Continued use after posting changes constitutes acceptance of the updated version. Please review the last-updated date above."
+    },
+    termination: {
+      p1: "Either party may terminate according to the proposal/contract terms. Upon termination, completed, paid-for deliverables up to the termination date will be handed over."
+    },
+    law: {
+      p1: "These Terms are governed by the laws of the Arab Republic of Egypt. Disputes will be resolved amicably first, then through the competent authorities in Egypt if necessary."
+    },
+    contact: {
+      email: "Email",
+      phone: "Phone",
+      address: "Address"
+    }
+  }
+}
+
+
 
 
           
@@ -233,7 +456,7 @@ i18n
           whyam:
           {
             whypadge:" لماذا نحن " , 
-            whyamerican:"  لماذا تختار امريكان سوفت ?!",
+            whyamerican:"  لماذا تختار امريكان سوفت ؟!",
             titleone:"نُهندس البرمجيات حول هدفك لتقديم حلول مخصّصة تُقاس بنتائجها: نمو أسرع، تكلفة أقل، وتجربة مستخدم أفضل." , 
             padgeone:" براعة ",
             titletwo:"سبرنتات قصيرة، إصدارات مستمرة، وكود نظيف قابل للتوسّع والصيانة." , 
@@ -244,10 +467,14 @@ i18n
 
 
           },
-          project:{
-            ourproject:"مشاريع من  تنفيذنا " ,
-            btnproject:"عرض المشروع  "
-          },
+         projects: {
+  title: "مشاريعنا",
+  subtitle: "استعرض أعمال الويب والتطبيقات والسيو مع فلاتر سريعة.",
+  tabs: { all: "الكل", web: "ويب", mobile: "هواتف", seo: "سيو" },
+  badge: { web: "ويب", mobile: "هواتف", seo: "سيو" },
+  viewBtn: "عرض المشروع",
+  error: "تعذّر تحميل المشاريع."
+},
 
           testimonials :
           {
@@ -324,7 +551,216 @@ i18n
             terms:"الاتفاقيات و الشروط " , 
            social:"تابعونا علي :" ,
            help:"الدعم " ,
-          }
+          } , 
+          privacy: {
+brand: "امريكان سوفت",
+company: "American Group for Software & Marketing",
+email: "americansoft8@gmail.com",
+address: "مصر – الجيزة – الهرم",
+phone: "+201211114528",
+website: "https://americangroup-eg.com",
+headerTitle: "سياسة الخصوصية — {{brand}}",
+lastUpdatedLabel: "آخر تحديث:",
+lastUpdatedFallback: "16 سبتمبر 2025",
+tocTitle: "فهرس المحتوى",
+toc: {
+intro: "مقدمة",
+data: "البيانات التي نجمعها",
+use: "كيف نستخدم بياناتك",
+legal: "الأسس القانونية",
+cookies: "الكوكيز وتقنيات التتبّع",
+analytics: "التحليلات وأدوات الطرف الثالث",
+sharing: "مشاركة البيانات",
+retention: "مدة الاحتفاظ بالبيانات",
+security: "الأمن وحماية البيانات",
+international: "نقل البيانات دوليًا",
+rights: "حقوقك في الخصوصية",
+children: "بيانات الأطفال",
+changes: "التغييرات على هذه السياسة",
+contact: "التواصل معنا"
+},
+intro: { p1: "في <strong> امريكان سوفت ويرز </strong>، نلتزم بحماية خصوصيتك. توضّح هذه السياسة أنواع البيانات التي نجمعها وكيفية استخدامها ومشاركتها والخيارات المتاحة لك. باستخدامك لموقعنا/خدماتنا فإنك توافق على هذه السياسة." },
+data: {
+li1: "<strong>بيانات الاتصال:</strong> الاسم، البريد الإلكتروني، الهاتف، الشركة.",
+li2: "<strong>بيانات الاستخدام:</strong> الصفحات التي تزورها، مدة الجلسة، المصدر، التفاعل.",
+li3: "<strong>النماذج/الملفات:</strong> المحتوى الذي ترسله عبر النماذج أو الملفات.",
+li4: "<strong>الكوكيز/معرّفات الأجهزة:</strong> لتحسين الأداء وتخصيص التجربة."
+},
+use: {
+li1: "تقديم الخدمات وتحسينها ودعم العملاء.",
+li2: "تحليل الأداء وتجربة المستخدم وقياس فعالية التسويق.",
+li3: "إرسال تحديثات أو عروض ذات صلة (مع إمكانية إلغاء الاشتراك).",
+li4: "الامتثال للمتطلبات القانونية والرد على الطلبات الرسمية."
+},
+legal: { p1: "نعتمد على تنفيذ العقد، الموافقة الصريحة، المصالح المشروعة (تحسين الخدمة، الأمان)، والالتزامات القانونية." },
+cookies: { p1: "نستخدم الكوكيز وlocalStorage ومعرّفات مماثلة لتمكين الوظائف الأساسية وتحليل الاستخدام. يمكنك إدارة التفضيلات من المتصفح أو عبر لافتة الكوكيز." },
+analytics: { p1: "قد نستخدم أدوات مثل Google Analytics وSearch Console. تعالج هذه الأدوات بيانات الاستخدام وفق سياساتها، ويمكنك الحد من التتبّع عبر إضافات المتصفح." },
+sharing: { li1: "مزوّدو خدمة (استضافة، بريد، تحليلات) ضمن اتفاقيات حماية بيانات.", li2: "عند طلب القانون أو الجهات التنظيمية.", li3: "في حالات الاندماج/الاستحواذ مع إخطار مناسب." },
+retention: { p1: "نحتفظ بالبيانات للمدة اللازمة للأغراض المذكورة أو كما يقتضيه القانون، ثم نحذفها أو نجهّلها بأمان." },
+security: { p1: "نطبّق إجراءات تقنية وتنظيمية مناسبة (تشفير، تحكّم صلاحيات، نسخ احتياطي) لحماية البيانات." },
+international: { p1: "قد تُنقل بعض البيانات إلى خوادم/مزودين خارج بلدك مع ضمانات مناسبة." },
+rights: { li1: "الوصول إلى بياناتك وتصحيحها أو طلب حذفها.", li2: "الاعتراض على المعالجة أو تقييدها في حالات معيّنة.", li3: "سحب الموافقة عندما يكون الأساس القانوني هو الموافقة.", li4: "نقل البيانات حيثما ينطبق.", cta: "لممارسة حقوقك، راسلنا على" },
+children: { p1: "خدماتنا موجّهة للبالغين. لا نجمع عن قصد بيانات من الأطفال؛ إن ظننت خلاف ذلك تواصل معنا." },
+changes: { p1: "قد نحدّث هذه السياسة من وقت لآخر. استمرار الاستخدام يعني موافقة على النسخة المحدّثة؛ راجع تاريخ آخر تحديث." },
+contact: { email: "البريد الإلكتروني", phone: "الهاتف", address: "العنوان" }
+          },  
+
+          faq: {
+  title: "الأسئلة الشائعة — American Soft",
+  subtitle:
+    "إجابات واضحة ومختصرة تغطي السيو والمحتوى وتجربة المستخدم والأداء والتطوير — متوافقة مع نية البحث وتحديثات جوجل.",
+  searchLabel: "ابحث في الأسئلة",
+  searchPlaceholder: "ابحث: سيو، خطة محتوى، سرعة، ترحيل…",
+  noResults: "لا توجد نتائج مطابقة للبحث.",
+  items: [
+    {
+      q: "ما هي خدمات American Soft الأساسية؟ وهل تدعمون العربية والإنجليزية؟",
+      a: "نقدّم حزمة متكاملة: SEO شامل (تقني/محتوى/روابط داخلية)، إنشاء خطة محتوى طويلة الأمد، تحسين تجربة المستخدم والسرعة، إعداد السكيما، تتبّع الأداء عبر GA4 و Search Console، وتصميم/تطوير مواقع ووردبريس وواجهات React. ندعم العربية والإنجليزية بالكامل."
+    },
+    {
+      q: "كم يستغرق ظهور نتائج السيو مع American Soft؟",
+      a: "عادةً نبدأ بمؤشرات واضحة خلال 4–8 أسابيع (تحسّن الانطباعات والزيارات)، مع نمو أقوى خلال 3–6 أشهر للصفحات التنافسية. يعتمد ذلك على المنافسة وجودة المحتوى وسجلّ الموقع."
+    },
+    {
+      q: "هل تعتمدون على الذكاء الاصطناعي في كتابة المحتوى؟",
+      a: "نستخدم الذكاء الاصطناعي كأداة مساعدة فقط، مع تحرير بشري كامل، وتدعيم بالمصادر، وإضافة خبرة وتجربة (E-E-A-T) وصوت علامتكم التجارية."
+    },
+    {
+      q: "كيف يتم تدقيق Technical SEO في American Soft؟",
+      a: "نفحص الزحف والفهرسة، خريطة الموقع، hreflang، بنية الروابط الداخلية، السرعة و Core Web Vitals، السكيما، الصفحات اليتيمة، والتعارضات التقنية. نسلم تقريرًا بالإصلاحات مع أولويات واضحة وخطة تنفيذ."
+    },
+    {
+      q: "هل تنشئون خطة محتوى متكاملة (Topic Cluster)؟",
+      a: "نعم، نبني عناقيد موضوعية بطبقات (صفحات ركيزة + مقالات داعمة)، نية بحث متعددة، أسئلة شائعة، وروابط داخلية ذكية. نُدخل كلمات رئيسية قصيرة وطويلة ومترادفات لتغطية السوق بالكامل."
+    },
+    {
+      q: "ما سياسة بناء الروابط لديكم؟",
+      a: "نركّز على روابط داخلية قوية وتجربة مستخدم ممتازة، ونرفض ممارسات الباك لينك المضللة. نفضّل الشراكات التحريرية، وذكر العلامة، والروابط الطبيعية الناتجة عن محتوى عالي القيمة."
+    },
+    {
+      q: "هل توفّر American Soft تقارير أداء دورية؟",
+      a: "نعم، تقارير شهرية واضحة تشمل نمو الكلمات المفتاحية، الزيارات العضوية، الصفحات الأعلى أداءً، مشاكل الفهرسة، وسير خطة المحتوى، مع توصيات تنفيذ قابلة للتطبيق."
+    },
+    {
+      q: "هل تبنون مواقع سريعة ومتوافقة مع Core Web Vitals؟",
+      a: "نعم، نستخدم ممارسات تحسين الأداء (تحجيم الصور، كاشينج ذكي، تحميل كسول، كود نظيف)، ونقيس CLS/LCP/INP لضمان سرعة وتجربة سلسة."
+    },
+    {
+      q: "ما نظام إدارة المحتوى المفضّل لديكم؟ وهل تدعمون WooCommerce؟",
+      a: "ووردبريس هو الخيار الأول لدينا بسبب المرونة والسيو. ندعم WooCommerce بالكامل، مع قوالب مخصصة، شورت كود، ربط نماذج بجوجل شيت، وإعدادات Rank Math/Yoast."
+    },
+    {
+      q: "هل تقدّمون Local SEO واستهداف مناطق معينة؟",
+      a: "نعم، ننشئ صفحات محلية متوافقة مع نية البحث، ملفات Google Business Profile، ومحتوى محلي (Cairo, Giza, New Cairo…)، مع بيانات منظّمة لنوع LocalBusiness."
+    },
+    {
+      q: "كيف تتعاملون مع تحديثات جوجل (SGE/Helpful Content)؟",
+      a: "نصمّم محتوى طويل المدى (Evergreen)، ونركّز على تجربة القارئ، وضوح البنية (H2/H3/جداول)، إجابات مباشرة، وسكيما FAQ/Article/Service مع مراجعة دورية للتحديثات."
+    },
+    {
+      q: "ما هي مدة العقود والدفع؟",
+      a: "غالبًا باقات شهرية بعقود مرنة، مع أهداف واضحة ومؤشرات أداء. الدفع إلكترونيًا وفواتير رسمية."
+    },
+    {
+      q: "هل تقدّمون كتابة صفحات الخدمة وصفحات الأسئلة الشائعة؟",
+      a: "نعم، نكتب صفحات خدمة محسّنة للسيو مع أسئلة شائعة فريدة ومتنوعة، بروابط داخلية، وأزرار CTA وبيانات منظّمة."
+    },
+    {
+      q: "هل يمكن ترحيل موقعنا وتحسين بنيته دون فقدان الفهرسة؟",
+      a: "نعم، بخطة ترحيل تشمل خرائط 301، فحص الروابط الداخلية، تحديث السكيما، واختبار Search Console قبل/بعد الإطلاق."
+    },
+    {
+      q: "ما الذي يميّز American Soft عن غيرها؟",
+      a: "دمج التقنية بالسيو: كود نظيف، مكوّنات React/Tailwind محسّنة، محتوى طويل احترافي، وتركيز على نتائج قابلة للقياس."
+    },
+    {
+      q: "كيف نبدأ معكم؟",
+      a: "تواصلوا معنا لتقييم مجاني: نفحص وضع الموقع، نحدّد الفجوات، ونقدّم خارطة طريق بالخطوات والأولويات والزمن المتوقع."
+    }
+  ]
+          },
+
+          terms: {
+  brand: "American Soft",
+  company: "American Group for Software & Marketing",
+  email: "americansoft8@gmail.com",
+  address: "مصر – القاهرة",
+  phone: "+20 121 111 4528",
+  lastUpdatedFallback: "16 سبتمبر 2025",
+
+  headerTitle: "شروط وأحكام الاستخدام — {{brand}}",
+  lastUpdatedLabel: "آخر تحديث:",
+  tocTitle: "فهرس المحتوى",
+  toc: {
+    acceptance: "قبول الشروط",
+    definitions: "التعريفات",
+    scope: "نطاق الخدمة",
+    accounts: "الحسابات والخصوصية",
+    payments: "الدفع والفوترة",
+    content: "المحتوى وحقوق الملكية الفكرية",
+    acceptableUse: "الاستخدام المقبول والممارسات المحظورة",
+    warranty: "إخلاء المسؤولية من الضمانات",
+    liability: "تحديد المسؤولية",
+    changes: "التعديلات على الشروط",
+    termination: "إنهاء الخدمة",
+    law: "القانون الحاكم وحل النزاعات",
+    contact: "التواصل معنا"
+  },
+
+  sections: {
+    acceptance: {
+      p1: "باستخدامك لمواقع وخدمات <strong>امريكان سوفت ويرز</strong>، فإنك توافق على هذه الشروط والأحكام وسياسة الخصوصية. إذا لم توافق على أي جزء من هذه الشروط، فيُرجى التوقف عن استخدام الموقع والخدمة."
+    },
+    definitions: {
+      li1: "<strong>الخدمة:</strong> تشمل خدمات السيو، كتابة المحتوى، تطوير الواجهات ووردبريس، تحسين الأداء/السرعة، والاستشارات.",
+      li2: "<strong>العميل:</strong> أي شخص طبيعي أو اعتباري يتعاقد معنا للحصول على الخدمة.",
+      li3: "<strong>المحتوى:</strong> النصوص، الصور، الشيفرات البرمجية، التصاميم، الملفات، والمواد التي يتم إنشاؤها أو نشرها ضمن المشروع."
+    },
+    scope: {
+      p1: "يُحدَّد نطاق العمل في عرض فني/مالي أو في أمر شراء/عقد منفصل يتضمن المتطلبات، المخرجات، جدول التسليم، وحدود المسؤولية. أي أعمال إضافية خارج النطاق تستلزم اتفاقًا وتكلفة زمنية/مالية إضافية."
+    },
+    accounts: {
+      p1: "قد يتطلّب تقديم الخدمة الوصول إلى حسابات وأدوات العميل (مثل: WordPress، Google Search Console، Analytics، Facebook Business Manager). يلتزم الطرفان بالحفاظ على سرية الوصول والبيانات. يخضع جمع واستخدام البيانات لسياسة الخصوصية الخاصة بنا."
+    },
+    payments: {
+      li1: "تُسدد الرسوم حسب العرض الفني/العقد وبنسب الدفع المتفق عليها.",
+      li2: "المبالغ المدفوعة مقابل ساعات/باقات السيو أو التطوير غير قابلة للاسترداد بعد بدء التنفيذ.",
+      li3: "قد تتضمن الأسعار ضرائب ورسوم تحويل/معاملات حسب الدولة ووسيلة الدفع."
+    },
+    content: {
+      li1: "تبقى ملكية المواد الأصلية التي يزوّدنا بها العميل له.",
+      li2: "يُمنح العميل ترخيص استخدام للمخرجات التي ننشئها ضمن المشروع بعد سداد كافة المستحقات.",
+      li3: "لا يجوز إزالة إشارات حقوق النشر أو إعادة بيع القوالب/الشيفرات دون إذن مكتوب."
+    },
+    acceptableUse: {
+      li1: "يُحظر استخدام الخدمة في أنشطة مخالفة للقانون أو لانتهاك حقوق الغير.",
+      li2: "نرفض ممارسات سيو مضللة (Spam/Backlinks عشوائية/نصوص مخفية… إلخ).",
+      li3: "يلتزم العميل بتوفير بيانات ومحتوى دقيق وغير منتهك لحقوق الملكية."
+    },
+    warranty: {
+      p1: "تُقدَّم الخدمات على أساس \"كما هي\" و\"كما هي متاحة\" دون أي ضمانات صريحة أو ضمنية. لا نضمن تصدُّر نتائج البحث أو تحقيق نتائج محددة خلال مدة زمنية ثابتة نظرًا لاختلاف عوامل السوق وتحديثات محركات البحث."
+    },
+    liability: {
+      p1: "في حدود ما يسمح به القانون، لن تتحمّل <strong>امريكان سوفت ويرز </strong> مسؤولية أي أضرار غير مباشرة أو تبعية أو فقدان أرباح ناشئ عن استخدام الخدمة. في جميع الأحوال لا تتجاوز مسؤوليتنا إجمالي المبالغ المدفوعة مقابل الخدمة خلال آخر ثلاثة أشهر."
+    },
+    changes: {
+      p1: "قد نقوم بتحديث هذه الشروط من وقت لآخر. يُعد استمرارك في استخدام الخدمة بعد نشر أي تعديلات موافقةً منك على النسخة المحدّثة. يُنصح بمراجعة تاريخ آخر تحديث أعلاه."
+    },
+    termination: {
+      p1: "يجوز لأي من الطرفين إنهاء العقد وفق الشروط المذكورة في العرض/العقد. عند الإنهاء تُسلَّم المخرجات المكتملة والمدفوعة حتى تاريخ الإنهاء."
+    },
+    law: {
+      p1: "تخضع هذه الشروط لقوانين جمهورية مصر العربية، وتُحل النزاعات وديًا أولًا، ثم عبر الجهات المختصة داخل مصر إذا لزم الأمر."
+    },
+    contact: {
+      email: "البريد الإلكتروني",
+      phone: "الهاتف",
+      address: "العنوان"
+    }
+  }
+          },
+
+
 
 
       

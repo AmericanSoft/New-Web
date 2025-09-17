@@ -143,7 +143,7 @@ export default {
 			},
 			fontFamily: {
 				'sans': ['Cairo', 'sans-serif'],
-				'display': ['Brockmann', 'SF Pro Display', 'Inter', 'sans-serif'],
+				'display': ['Cairo', 'SF Pro Display', 'Inter', 'sans-serif'],
 				'brockmann': ['Brockmann', 'serif'],
 				'playfair': ['"Playfair Display"', 'serif'],
 			},

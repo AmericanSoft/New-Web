@@ -80,11 +80,11 @@ const SecNavbar: React.FC = () => {
             {t("navbar.contact")}
           </NavLink>
 
-          <NavLink to="/home" className="nav-link text-current">
+          <NavLink to="/" className="nav-link text-current">
             {t("navbar.ourProject")}
           </NavLink>
 
-          <NavLink to="/home" className="nav-link text-current">
+          <NavLink to="/blog" className="nav-link text-current">
             {t("navbar.blog")}
           </NavLink>
           
@@ -174,7 +174,7 @@ const SecNavbar: React.FC = () => {
             {t("navbar.services")}
           </NavLink>
 
-          <NavLink to="/home" className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" onClick={() => {
+          <NavLink to="/blog" className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = "";
             }}
@@ -183,7 +183,7 @@ const SecNavbar: React.FC = () => {
           </NavLink>
 
           <NavLink
-            to="/home"
+            to="/blog"
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100"
             onClick={() => {
               setIsMenuOpen(false);

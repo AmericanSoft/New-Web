@@ -65,9 +65,9 @@ const Footer: React.FC = () => {
                 >
                   <h3 className="f-title f_600 t_color f_size_18">{t("footer.help")}</h3>
                   <ul className="list-unstyled f_list">
-                    <li><a href="#">{t("footer.faq")}</a></li>
-                    <li><a href="#">{t("footer.terms")} </a></li>
-                    <li><a href="#">{t("footer.privacy")}</a></li>
+                    <li><a href="/faq">{t("footer.faq")}</a></li>
+                    <li><a href="/terms">{t("footer.terms")} </a></li>
+                    <li><a href="/privacy">{t("footer.privacy")}</a></li>
                   </ul>
                 </div>
               </div>

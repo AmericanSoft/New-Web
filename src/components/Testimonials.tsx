@@ -71,7 +71,7 @@ const Testimonials = () => {
 
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  return <section className="py-12 bg-white relative" id="testimonials" ref={sectionRef}> {/* Reduced from py-20 */}
+  return <section className="py-12 bg-white relative " id="testimonials" ref={sectionRef}> {/* Reduced from py-20 */}
       <div className="section-container opacity-0 animate-on-scroll">
         <div className="flex items-center gap-4 mb-6">
           <div className="pulse-chip gap-1">

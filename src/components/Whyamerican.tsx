@@ -103,18 +103,20 @@ const Whyamerican = () => {
       <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white" id="why-humanoid">
         <div className="container px-6 lg:px-8 mx-auto h-full flex flex-col">
           <div className="mb-2 md:mb-3">
-            <div className="flex items-center gap-4 mb-2 md:mb-2 pt-8 sm:pt-6 md:pt-4">
-              <div className="pulse-chip opacity-0 animate-fade-in gap-4" style={{
-                animationDelay: "0.1s"
-              }}>
-                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white mr-2">02</span>
-                <span>{t("whyam.whypadge")}</span>
+            
+            <div className="flex items-center justify-center gap-4 mb-2 md:mb-2 pt-8 sm:pt-6 md:pt-4">
+
+              <div className="pulse-chip opacity-0 animate-fade-in gap-4 text-center" style={{ animationDelay: "0.1s"}}>
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white mr-2 text-center">02</span>
+                <span >{t("whyam.whypadge")}</span>
               </div>
+
             </div>
             
-            <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2">
+            <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2 text-center">
               {t("whyam.whyamerican")}
             </h2>
+            
           </div>
           
           <div ref={cardsContainerRef} className="relative flex-1 perspective-1000">

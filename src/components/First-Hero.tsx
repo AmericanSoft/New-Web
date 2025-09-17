@@ -75,7 +75,7 @@ const FirstHero = () => {
 
       {/* محتوى الهيرو */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pt-32">
           {/* اليسار */}
           <div className="space-y-8">
             <div className="flex w-[17em] items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium gap-2 justify-start">
@@ -164,14 +164,16 @@ const FirstHero = () => {
                     <div className="h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg border border-primary/20"></div>
                     <div className="h-16 bg-gradient-to-br from-white/10 to-white/5 rounded-lg border border-white/20"></div>
                   </div>
+
                 </div>
               </div>
 
               <div className="absolute -top-4 -right-4 w-24 h-24 gradient-primary rounded-full opacity-20 animate-pulse"></div>
               <div
                 className="absolute -bottom-4 -left-4 w-16 h-16 border-2 border-primary/30 rounded-lg rotate-12 animate-spin"
-                style={{ animationDuration: "10s" }}
-              ></div>
+                style={{ animationDuration: "10s" }} >
+
+                </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import OurPorject from "@/components/OurPorject";
 import Whyamerican from "@/components/Whyamerican";
@@ -68,14 +68,15 @@ const Index = () => {
       <Navbar />
       <main className="space-y-4 sm:space-y-8"> {/* Reduced space on mobile */}
         <FirstHero/>
+        
         <Services />
         <HowItWorks/>
         <Whyamerican />
         <OurPorject />
-        <Contactus />
         <Blog />
         <StackedAnimatedTestimonials />
         <Newsletter />
+        <Contactus />
         <Footer/>
         
         
