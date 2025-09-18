@@ -111,8 +111,8 @@ export default function AboutPage({ rtl }: { rtl?: boolean }) {
                 className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition"
               >
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 ring-1 ring-teal-100">
-                    <Icon className="h-5 w-5 text-teal-700" aria-hidden />
+                  <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 ring-1 ring-red-100">
+                    <Icon className="h-5 w-5 text-black-700" aria-hidden />
                   </span>
                   <p className="text-slate-800">{text}</p>
                 </div>
@@ -206,7 +206,7 @@ export default function AboutPage({ rtl }: { rtl?: boolean }) {
           </section>
 
           {/* CTA */}
-          <section className="rounded-3xl border border-slate-200 bg-gradient-to-tr from-teal-50 to-white p-6 sm:p-8 shadow-sm text-center">
+          <section className="rounded-3xl border border-slate-200 bg-gradient-to-tr from-red-50 to-white p-6 sm:p-8 shadow-sm text-center">
             <h4 className="text-xl sm:text-2xl font-bold text-slate-900">{t("about.cta.title")}</h4>
             <p className="mt-2 text-slate-700">{t("about.cta.desc")}</p>
             <a
@@ -215,12 +215,12 @@ export default function AboutPage({ rtl }: { rtl?: boolean }) {
                 e.preventDefault();
                 open();
               }}
-              className="mt-4 inline-block rounded-xl border border-teal-600 px-5 py-3 text-sm font-medium text-teal-700 hover:bg-teal-700 hover:text-white"
+              className="mt-4 inline-block rounded-xl border border-red-600 px-5 py-3 text-sm font-medium text-black-700 hover:bg-red-700 hover:text-white"
             >
               {t("about.cta.btn")}
             </a>
-            <p className="mt-3 text-sm text-slate-600">
-              {t("about.contactLine")} <span className="font-medium">{phone}</span>
+            <p className="mt-3 text-sm text-black-600">
+              {t("about.contactLine")} <span className="font-medium"><a href="tel:+201080002209">{phone}</a></span>
             </p>
           </section>
 

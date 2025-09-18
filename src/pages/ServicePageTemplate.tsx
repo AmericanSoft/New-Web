@@ -105,18 +105,19 @@ export default function ServicePageTemplate({ baseKey, coverUrl, rtl }: ServiceP
           </section>
 
           {/* CTA */}
-          <section className="rounded-3xl border border-slate-200 bg-gradient-to-tr from-teal-50 to-white p-6 sm:p-8 shadow-sm text-center">
+          <section className="rounded-3xl border border-slate-200 bg-gradient-to-tr from-red-50 to-white p-6 sm:p-8 shadow-sm text-center">
             <h4 className="text-xl sm:text-2xl font-bold text-slate-900">{t(`${baseKey}.cta.title`)}</h4>
             <p className="mt-2 text-slate-700">{t(`${baseKey}.cta.desc`)}</p>
             <a
               
-              className="mt-4 inline-block rounded-xl border border-teal-600 px-5 py-3 text-sm font-medium text-teal-700 hover:bg-teal-700 hover:text-white"
+              className="mt-4 inline-block rounded-xl border border-red-600 px-5 py-3 text-sm font-medium text-black-700 hover:bg-red-700 hover:text-white cursor-pointer"
               onClick={open}
+
             >
               {t(`${baseKey}.cta.btn`)}
             </a>
-            <p className="mt-3 text-sm text-slate-600">
-              {t("about.contactLine")} <span className="font-medium">{phone}</span>
+             <p className="mt-3 text-sm text-black-600">
+              {t("about.contactLine")} <span className="font-medium"><a href="tel:+201080002209">{phone}</a></span>
             </p>
           </section>
 

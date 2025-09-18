@@ -3,6 +3,11 @@ import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import   "../i18";
 import { useTranslation } from "react-i18next";
+import pic1 from '../../public/howitwork-img/1.png'
+import pic2 from '../../public/howitwork-img/2.png'
+import pic3 from '../../public/howitwork-img/3.png'
+import pic4 from '../../public/howitwork-img/4.png'
+
 
 
 interface StepCardProps {
@@ -63,25 +68,25 @@ const HowItWorks = () => {
       number: "01",
       title: t("process.req"),
       description: t("process.titlereq"),
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
+      image: pic1
     },
     {
       number: "02",
       title: t("process.offer"),
       description: t("process.titleoffer"),
-      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+      image: pic2
     },
     {
       number: "03",
       title: t("process.start"),
       description: t("process.titlestart"),
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
+      image: pic3
     },
     {
       number: "04",
       title: t("process.handover"),
       description: t("process.titlehandover"),
-      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+      image: pic4
     }
   ];
 
@@ -167,8 +172,8 @@ const HowItWorks = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-900/70 to-transparent">
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <span className="text-red-400 font-medium mb-2 block">{step.number}</span>
-                    <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
+                    <span className="text-white-400 font-medium mb-2 block">{step.number}</span>
+                    <h3 className="text-2xl font-bold mb-2 text-red-600">{step.title}</h3>
                     <p className="text-white/80">{step.description}</p>
                   </div>
                 </div>

@@ -1,236 +1,126 @@
-
 import React, { useEffect, useRef, useState } from "react";
-import   "../i18";
+import "../i18";
 import { useTranslation } from "react-i18next";
 
-
-
-const Whyamerican = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsContainerRef = useRef<HTMLDivElement>(null);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
-  const [isIntersecting, setIsIntersecting] = useState(false);
-  const ticking = useRef(false);
-  const lastScrollY = useRef(0);
-
-  // More responsive timing function with shorter duration
-  const cardStyle = {
-    height: '60vh',
-    maxHeight: '600px',
-    borderRadius: '20px',
-    transition: 'transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1)',
-    willChange: 'transform, opacity'
-  };
-
-  useEffect(() => {
-    // Create intersection observer to detect when section is in view
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        setIsIntersecting(entry.isIntersecting);
-      },
-      { threshold: 0.1 } // Start observing when 10% of element is visible
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
-    // Optimized scroll handler using requestAnimationFrame
-    const handleScroll = () => {
-      if (!ticking.current) {
-        lastScrollY.current = window.scrollY;
-        
-        window.requestAnimationFrame(() => {
-          if (!sectionRef.current) return;
-          
-          const sectionRect = sectionRef.current.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-          const totalScrollDistance = viewportHeight * 2;
-          
-          // Calculate the scroll progress
-          let progress = 0;
-          if (sectionRect.top <= 0) {
-            progress = Math.min(1, Math.max(0, Math.abs(sectionRect.top) / totalScrollDistance));
-          }
-          
-          // Determine which card should be visible based on progress
-          if (progress >= 0.66) {
-            setActiveCardIndex(2);
-          } else if (progress >= 0.33) {
-            setActiveCardIndex(1);
-          } else {
-            setActiveCardIndex(0);
-          }
-          
-          ticking.current = false;
-        });
-        
-        ticking.current = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial calculation
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
-  // Card visibility based on active index instead of direct scroll progress
-  const isFirstCardVisible = isIntersecting;
-  const isSecondCardVisible = activeCardIndex >= 1;
-  const isThirdCardVisible = activeCardIndex >= 2;
-
-    const { t , i18n } = useTranslation();
-        
-          const changLang = () => {
-            const newLang = i18n.language === "ar" ? "en" : "ar";
-            i18n.changeLanguage(newLang);
-            localStorage.setItem("lang", newLang);
-          };
-
-  return (
-    <div 
-      ref={sectionRef} 
-      className="relative" 
-      style={{ height: '300vh' }}
-    >
-      <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white" id="why-humanoid">
-        <div className="container px-6 lg:px-8 mx-auto h-full flex flex-col">
-          <div className="mb-2 md:mb-3">
-            
-            <div className="flex items-center justify-center gap-4 mb-2 md:mb-2 pt-8 sm:pt-6 md:pt-4">
-
-              <div className="pulse-chip opacity-0 animate-fade-in gap-4 text-center" style={{ animationDelay: "0.1s"}}>
-                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white mr-2 text-center">02</span>
-                <span >{t("whyam.whypadge")}</span>
-              </div>
-
-            </div>
-            
-            <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2 text-center">
-              {t("whyam.whyamerican")}
-            </h2>
-            
-          </div>
-          
-          <div ref={cardsContainerRef} className="relative flex-1 perspective-1000">
-            {/* First Card */}
-            <div 
-              className={`absolute inset-0 overflow-hidden shadow-xl ${isFirstCardVisible ? 'animate-card-enter' : ''}`} 
-              style={{
-                ...cardStyle,
-                zIndex: 10,
-                transform: `translateY(${isFirstCardVisible ? '90px' : '200px'}) scale(0.9)`,
-                opacity: isFirstCardVisible ? 0.9 : 0
-              }}
-            >
-              <div
-                className="absolute inset-0 z-0 bg-gradient-to-b from-pulse-900/40 to-dark-900/80"
-                style={{
-                  backgroundImage: "url('/background-section1.png')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "top center",
-                  backgroundBlendMode: "overlay"
-                }}
-              ></div>
-              
-              <div className="absolute top-4 right-4 z-20">
-                <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">{t("whyam.padgeone")}</span>
-                </div>
-              </div>
-              
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
-                <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                   {t("whyam.titleone")}
-                  </h3>
-                </div>
-              </div>
-            </div>
-            
-            {/* Second Card */}
-            <div 
-              className={`absolute inset-0 overflow-hidden shadow-xl ${isSecondCardVisible ? 'animate-card-enter' : ''}`} 
-              style={{
-                ...cardStyle,
-                zIndex: 20,
-                transform: `translateY(${isSecondCardVisible ? activeCardIndex === 1 ? '55px' : '45px' : '200px'}) scale(0.95)`,
-                opacity: isSecondCardVisible ? 1 : 0,
-                pointerEvents: isSecondCardVisible ? 'auto' : 'none'
-              }}
-            >
-              <div
-                className="absolute inset-0 z-0 bg-gradient-to-b from-pulse-900/40 to-dark-900/80"
-                style={{
-                  backgroundImage: "url('/background-section2.png')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundBlendMode: "overlay"
-                }}
-              ></div>
-              
-              <div className="absolute top-4 right-4 z-20">
-                <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">{t("whyam.padgetwo")}</span>
-                </div>
-              </div>
-              
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
-                <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                     {t("whyam.titletwo")}
-                  </h3>
-                </div>
-              </div>
-            </div>
-            
-            {/* Third Card */}
-            <div 
-              className={`absolute inset-0 overflow-hidden shadow-xl ${isThirdCardVisible ? 'animate-card-enter' : ''}`} 
-              style={{
-                ...cardStyle,
-                zIndex: 30,
-                transform: `translateY(${isThirdCardVisible ? activeCardIndex === 2 ? '15px' : '0' : '200px'}) scale(1)`,
-                opacity: isThirdCardVisible ? 1 : 0,
-                pointerEvents: isThirdCardVisible ? 'auto' : 'none'
-              }}
-            >
-              <div
-                className="absolute inset-0 z-0 bg-gradient-to-b from-pulse-900/40 to-dark-900/80"
-                style={{
-                  backgroundImage: "url('/background-section3.png')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "bottom center",
-                  backgroundBlendMode: "overlay"
-                }}
-              ></div>
-              
-              <div className="absolute top-4 right-4 z-20">
-                <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium"> {t("whyam.padgethree")}</span>
-                </div>
-              </div>
-              
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
-                <div className="max-w-lg">
-                  <h3 className="text-2xl leading-[2em] sm:text-3xl md:text-4xl font-display text-white font-bold leading-[2em] mb-4">
-                     {t("whyam.titlethree")} <span className="text-[#000000]">{t("whyam.titlefour")}</span>
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+type Card = {
+  bg: string;
+  badgeKey: string;
+  titleKey: string;
+  titleExtraKey?: string; // للجزء الأسود في الكارت التالت
 };
 
-export default Whyamerican;
+const CARDS: Card[] = [
+  { bg: "/background-section1.png", badgeKey: "whyam.padgeone",  titleKey: "whyam.titleone" },
+  { bg: "/background-section2.png", badgeKey: "whyam.padgetwo",  titleKey: "whyam.titletwo" },
+  { bg: "/background-section3.png", badgeKey: "whyam.padgethree", titleKey: "whyam.titlethree", titleExtraKey: "whyam.titlefour" },
+];
+
+// هوك بسيط لعمل reveal ناعم عند دخول العنصر في الفيو
+function useInView<T extends HTMLElement>(threshold = 0.2) {
+  const ref = useRef<T | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          obs.disconnect(); // مرة واحدة تكفي
+        }
+      },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  return { ref, inView };
+}
+
+export default function Whyamerican() {
+  const { t, i18n } = useTranslation();
+  const isAr = i18n.language?.startsWith("ar");
+  const dir = isAr ? "rtl" : "ltr";
+
+  return (
+    <section dir={dir} className="w-full bg-white py-16 sm:py-20" id="why-humanoid">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Badge + Title */}
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white text-xs">02</span>
+            <span className="text-slate-700 text-sm font-medium">{t("whyam.whypadge")}</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-slate-900">
+            {t("whyam.whyamerican")}
+          </h2>
+        </div>
+
+        {/* Cards */}
+        <div className="grid gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
+          {CARDS.map((c, idx) => (
+            <CardItem key={idx} card={c} isAr={isAr} t={t} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CardItem({
+  card,
+  isAr,
+  t,
+}: {
+  card: Card;
+  isAr: boolean;
+  t: (k: string, opts?: any) => string;
+}) {
+  const { ref, inView } = useInView<HTMLDivElement>(0.2);
+
+  return (
+    <article
+      ref={ref}
+      className={[
+        "relative overflow-hidden rounded-2xl bg-slate-900/90 shadow-xl ring-1 ring-black/5",
+        "transition-all duration-500",
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+        "group"
+      ].join(" ")}
+      style={{ minHeight: 320 }}
+    >
+      {/* الخلفية */}
+      <img
+        src={card.bg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover opacity-70 transition-transform duration-700 group-hover:scale-[1.03]"
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+
+      {/* البادچ */}
+      <div className={`absolute top-4 ${isAr ? "left-4" : "right-4"} z-20`}>
+        <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/25 backdrop-blur text-white text-sm font-semibold ring-1 ring-white/30">
+          {t(card.badgeKey)}
+        </div>
+      </div>
+
+      {/* المحتوى */}
+      <div className="relative z-10 p-6 sm:p-7 md:p-8 flex items-end h-full">
+        <h3 className="text-white font-bold leading-tight text-2xl sm:text-3xl md:text-[28px]">
+          {t(card.titleKey)}{" "}
+          {card.titleExtraKey && (
+            <span className="text-black inline-block bg-white/70 rounded px-2 py-0.5 ml-1">
+              {t(card.titleExtraKey)}
+            </span>
+          )}
+        </h3>
+      </div>
+
+      {/* تأثير hover لطيف */}
+      <div className="absolute inset-0 ring-1 ring-white/10 rounded-2xl pointer-events-none group-hover:ring-white/25 transition-colors duration-300" />
+    </article>
+  );
+}
