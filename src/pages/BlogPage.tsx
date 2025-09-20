@@ -3,6 +3,7 @@ import "../i18";
 import { useTranslation } from "react-i18next";
 import SecNavbar from "@/components/SecNavbar";
 import { NavLink } from "react-router-dom";
+import Footer from '../components/Footer/Footer'
 
 type WPPost = {
   id: number;
@@ -175,6 +176,8 @@ const BlogCard: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <Footer/>
     </>
   );
 };

@@ -12,10 +12,9 @@ import OurProjects from "./pages/AdminPages/Admin-Project";
 import OurContactus from "./pages/AdminPages/Admin-Contacts";
 import { QuoteModalProvider } from "./components/QuoteModalContext";
 import Popupform from "./components/popupform";
-import  SingleProjectDetails from './components/ProjectPage'
+import  SingleProjectDetails from './components/SingleProjectDetails.tsx'
 import BlogList from "./pages/BlogPage";
-import ArticlePage from "./pages/ArticalsPages";
-import AmericanSoftFAQ from './pages/faq.tsx'
+import AmericanSoftFAQ from './pages/Faq.tsx'
 import TermsPage from "./pages/Terms.tsx";
 import PrivacyPolicyPage from "./pages/privacy.tsx";
 import BlogArticleRoute from "./pages/BlogArticleRoute.tsx";
@@ -24,6 +23,8 @@ import IOSAppPage from "./pages/IOSAppPage.tsx";
 import DesktopAppPage from "./pages/DesktopAppPage.tsx";
 import AllProjectsPage from "./pages/AllProjectsPage.tsx";
 import AndroidAppPage from "./pages/AndroidAppPage.tsx";
+import ContactPage from "./pages/Contactus.tsx";
+import ServicesPage from './pages/OurServcies.tsx'
 
 const queryClient = new QueryClient();
 
@@ -39,7 +40,9 @@ function ProtectedRoute({ children }) {
 }
 
 const App = () => (
+
   <QueryClientProvider client={queryClient}>
+
     <QuoteModalProvider>
 
     <TooltipProvider>
@@ -69,7 +72,7 @@ const App = () => (
             <Route path="/article/:id" element={<BlogArticleRoute />} />
 
 
-            <Route path="projects/:id" element={<SingleProjectDetails />} />
+            <Route path="project/:id" element={<SingleProjectDetails />} />
             <Route path="/faq" element={<AmericanSoftFAQ/>}/>
             <Route path="/terms" element={<TermsPage/>}/>
 
@@ -79,6 +82,13 @@ const App = () => (
             <Route path="/ios" element={<IOSAppPage />} />
             <Route path="/desktop" element={<DesktopAppPage />} />
             <Route path="/projects" element={<AllProjectsPage />} />
+            <Route path="/contactus" element={<ContactPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+
+            
+
+
+            
 
             
 

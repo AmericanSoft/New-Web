@@ -10,7 +10,7 @@ export default function OurProjects() {
   const [editingProject, setEditingProject] = useState<any | null>(null);
 
   useEffect(() => {
-    fetch("https://american-softwares.com/api/public/index.php/api/projects")
+    fetch("https://american-softwares.com/api/projects")
       .then((res) => res.json())
       .then((data) => {
         setProjects(data?.data || data || []);

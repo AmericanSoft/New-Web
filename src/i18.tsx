@@ -17,7 +17,7 @@ i18n
             contact: "Contact",
             ourProject: "Our Project",
             blog: "Blog",
-            requestQuote: "Request a Quote",
+            requestQuote: "Request a Servcies",
             services:"Services", 
             arabic: "العربية",
             english: "English",
@@ -81,7 +81,7 @@ i18n
             titleblog:"Every day we have a new technology where innovation meets execution, and ideas turn into products.." ,
             articalblogtitle:" New AI tricks are coming your way!" , 
             pragraphblogtitle:"Artificial intelligence has become a part of our daily lives—writing, summarizing, programming, and suggesting ideas. But the difference between an “average” result and a “wow!” result often lies not in the tool itself, but in how it is used. This article collects practical, proven tricks that will improve the quality of your output, whether you are a content creator, developer, or business owner.",
-            readmore:"readmore ", 
+            readmore:"Read More ", 
 
           },
 
@@ -112,10 +112,22 @@ i18n
             titleform:"Unleash yourself and use the latest technologies.",
             username:"Youe Name  " ,
             mail:"Your Mail " ,
+            phone:"Phone",
+            notesLabel:"Notes ", 
             company:" Company ( OPtional  )" ,
             btnform:" Submit  ",
+            notesPlaceholder:"Write any information about you project",
+            notesHint:"Notes Hint " ,
             validationRequired: "Please fill in all required fields",
             submitSuccess: "Request submitted successfully!",
+            faq: {
+    miniTitle: "Quick Questions",
+    q1: "When will you respond to messages?",
+    a1: "Usually within 24 business hours.",
+    q2: "Can we do a quick call?",
+    a2: "Yes—after the initial inquiry, we’ll schedule a suitable time.",
+  },
+
             subject: {
             placeholder: "Select a subject",
             options: {
@@ -123,6 +135,7 @@ i18n
             mobile_app: "Mobile Application",
             custom_software: "Custom Software",
             portfolio_examples: "Portfolio / Examples",
+            seo_strategy:"Seo Strategy",
             }
           },
 
@@ -228,7 +241,7 @@ cta: "To exercise your rights, contact us at"
 },
 children: { p1: "Our services target adults; we do not knowingly collect data from children. If you believe a child provided data, please contact us." },
 changes: { p1: "We may update this policy from time to time. Continued use means you accept the updated version; check the date above." },
-contact: { email: "americansoft8@gmail.com", phone: "01080002209", address: "Egypt , Giza , Haram" }
+contact: { email: "americansoft8@gmail.com", phone: "01080877774", address: "Egypt , Giza , Haram" }
           },
 
 
@@ -313,7 +326,7 @@ contact: { email: "americansoft8@gmail.com", phone: "01080002209", address: "Egy
   company: "American Group for Software & Marketing",
   email: "americansoft8@gmail.com",
   address: "Cairo, Egypt",
-  phone: "01080002209",
+  phone: "01080877774",
   lastUpdatedFallback: "Sep 16, 2025",
 
   headerTitle: "Terms & Conditions — {{brand}}",
@@ -393,7 +406,7 @@ contact: { email: "americansoft8@gmail.com", phone: "01080002209", address: "Egy
     brand: "American Soft",
     company: "American Group for Software & Marketing",
     email: "americansoft8@gmail.com",
-    phone: "01080002209",
+    phone: "01080877774",
     address: "Cairo, Egypt",
     website: "https://americansoft.example.com"
   },
@@ -679,10 +692,22 @@ contact: { email: "americansoft8@gmail.com", phone: "01080002209", address: "Egy
             titleform:"اطلق لنفسك العنان واستخدم احدث التقنيات",
             username:"اسمك " ,
             mail:"بريدك الالكتروني " ,
+            phone:" رقم الهاتف " ,
+            notesLabel:"ملاحظات اضافية ",
+            notesPlaceholder:"اترك ملاحظاتك او اي معلومات بخصوص مشروعك ",
+            notesHint:"اترك ملاحظاتك ",
             company:"اسم شركتك (اختياري )" ,
             btnform:" تقديم عرض ",
             validationRequired: "من فضلك املئ جميع الحقول ",
             submitSuccess: "تم تسجيل طلبك بنجاح !",
+            faq: {
+    miniTitle: "أسئلة سريعة",
+    q1: "متى نرد على الرسائل؟",
+    a1: "عادةً خلال 24 ساعة عمل.",
+    q2: "هل يمكن مكالمة سريعة؟",
+    a2: "نعم، بعد الاستفسار الأولي نحدّد موعدًا مناسبًا.",
+  },
+
             subject: {
             placeholder: "اختر الخدمة ",
             options: {
@@ -690,6 +715,7 @@ contact: { email: "americansoft8@gmail.com", phone: "01080002209", address: "Egy
             mobile_app: "تطبيق للهاتف ",
             custom_software: "انظمة مخصصة ",
             portfolio_examples: "واجهات شخصية ",
+            seo_strategy:"استراتجيات سيو ",
             }
           },
 
@@ -720,7 +746,7 @@ brand: "امريكان سوفت",
 company: "American Group for Software & Marketing",
 email: "americansoft8@gmail.com",
 address: "مصر – الجيزة – الهرم",
-phone: "01080002209",
+phone: "01080877774",
 website: "https://americangroup-eg.com",
 headerTitle: "سياسة الخصوصية — {{brand}}",
 lastUpdatedLabel: "آخر تحديث:",
@@ -848,7 +874,7 @@ contact: { email: "البريد الإلكتروني", phone: "الهاتف", ad
   company: "American Group for Software & Marketing",
   email: "americansoft8@gmail.com",
   address: "مصر – القاهرة",
-  phone: "01080002209",
+  phone: "01080877774",
   lastUpdatedFallback: "16 سبتمبر 2025",
 
   headerTitle: "شروط وأحكام الاستخدام — {{brand}}",
@@ -928,7 +954,7 @@ contact: { email: "البريد الإلكتروني", phone: "الهاتف", ad
     brand: "American Soft",
     company: "American Group for Software & Marketing",
     email: "americansoft8@gmail.com",
-    phone: "01080002209",
+    phone: "01080877774",
     address: "مصر – القاهرة",
     website: "https://americansoft.example.com"
   },

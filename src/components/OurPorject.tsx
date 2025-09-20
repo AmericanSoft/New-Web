@@ -7,7 +7,7 @@ type Project = {
   id: number | string;
   title: string;
   description: string;
-  image: string;
+  main_image: string;
   category: "web" | "mobile" | "seo" | string;
   url?: string;
 };
@@ -22,74 +22,78 @@ type Props = {
   wpBase?: string;
   categories?: { web: string; mobile: string; seo: string };
   perPage?: number;
-  useProxy?: boolean;
 
   // JSON
-  jsonUrl?: string;
+  jsonUrl?: string; // مثال: https://american-softwares.com/api/projects
 
   // internal details route
   internalLinkBase?: string;
 };
 
-// proxy (dev only)
-const proxify = (url: string) =>
-  `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-
-async function fetchJsonViaProxy<T = any>(url: string, useProxy?: boolean): Promise<T> {
-  if (!useProxy) {
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
-    return (await r.json()) as T;
-  }
-  const res = await fetch(proxify(url));
-  if (!res.ok) throw new Error("Proxy fetch error");
-  const data = await res.json();
-  return JSON.parse(data.contents) as T;
+/* ==================== Helpers ==================== */
+async function fetchJson<T = any>(url: string): Promise<T> {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+  return (await r.json()) as T;
 }
 
-// WP helpers
-async function wpGetCategoryId(base: string, slug: string, useProxy?: boolean) {
+// يبني base صحيح للصور من jsonUrl (يلتقط حتى /public/)
+function makeAssetsBase(jsonUrl: string | undefined) {
+  if (!jsonUrl) return "";
+  try {
+    const u = new URL(jsonUrl);
+    const m = u.href.match(/^(https?:\/\/[^?#]+\/public\/)/);
+    // لو لقى /public/ يستخدمه، غير كده يرجع origin
+    return m ? m[1] : u.origin + "/";
+  } catch {
+    return "";
+  }
+}
+const toAbsWithBase = (u: string | undefined, base: string) => {
+  if (!u) return "";
+  try {
+    return new URL(u, base || undefined).href;
+  } catch {
+    return u;
+  }
+};
+
+/* ==================== WordPress Helpers (اختياري) ==================== */
+async function wpGetCategoryId(base: string, slug: string) {
   const url = `${base}/wp-json/wp/v2/categories?slug=${encodeURIComponent(slug)}`;
-  const cats = await fetchJsonViaProxy<any[]>(url, useProxy);
+  const cats = await fetchJson<any[]>(url);
   return cats?.[0]?.id as number | undefined;
 }
 
-async function wpFetchProjects(base: string, catIds: number[], perPage = 12, useProxy?: boolean) {
+async function wpFetchProjects(base: string, catIds: number[], perPage = 12) {
   const url = `${base}/wp-json/wp/v2/posts?categories=${catIds.join(",")}&_embed&per_page=${perPage}`;
-  return await fetchJsonViaProxy<any[]>(url, useProxy);
+  return await fetchJson<any[]>(url);
 }
 
 function wpMapToProject(post: any, catKey: string): Project {
-  const image =
+  const main_image =
     post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-    post?.yoast_head_json?.og_image?.[0]?.url ||
+    post?.yoast_head_json?.og_main_image?.[0]?.url ||
     "/project.png";
   const title = (post?.title?.rendered || "").replace(/<[^>]+>/g, "");
   const description = (post?.excerpt?.rendered || "")
     .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  return {
-    id: post.id,
-    title,
-    description,
-    image,
-    category: catKey,
-    url: post.link,
-  };
+  return { id: post.id, title, description, main_image, category: catKey, url: post.link };
 }
 
-// ثوابت الفلاتر (المفاتيح فقط — الليبل من i18n)
+/* ==================== Tabs ==================== */
 const TAB_KEYS = ["all", "web", "mobile", "seo"] as const;
 type TabKey = typeof TAB_KEYS[number];
 
+/* ==================== Component ==================== */
 export default function OurProject({
   rtl,
   mode,
   wpBase,
   categories,
   perPage = 12,
-  useProxy = true,
   jsonUrl,
   internalLinkBase,
 }: Props) {
@@ -102,13 +106,12 @@ export default function OurProject({
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
-  // labels من i18n
   const TAB_LABELS = useMemo(
     () => ({
-      all: t("projects.tabs.all"),
-      web: t("projects.tabs.web"),
-      mobile: t("projects.tabs.mobile"),
-      seo: t("projects.tabs.seo"),
+      all: t("projects.tabs.all", "الكل"),
+      web: t("projects.tabs.web", "Web"),
+      mobile: t("projects.tabs.mobile", "Mobile"),
+      seo: t("projects.tabs.seo", "SEO"),
     }),
     [t]
   );
@@ -121,21 +124,97 @@ export default function OurProject({
 
         if (mode === "json") {
           if (!jsonUrl) throw new Error("jsonUrl is required in json mode");
-          const data = await fetchJsonViaProxy<Project[]>(jsonUrl, useProxy);
-          setAllProjects(data);
+
+          const raw = await fetchJson<any>(jsonUrl);
+
+          // يلتقط حتى /public/ عشان الصور النسبية
+          const assetsBase = makeAssetsBase(jsonUrl);
+
+          // يدعم أشكال مختلفة: [] أو {data:[]} أو {projects:[]}
+          const list: any[] = Array.isArray(raw)
+            ? raw
+            : Array.isArray(raw?.data)
+            ? raw.data
+            : Array.isArray(raw?.projects)
+            ? raw.projects
+            : [];
+
+          const mapped: Project[] = list.map((item, idx) => {
+            const id = item.id ?? item._id ?? item.slug ?? `p-${idx}`;
+
+            const title =
+              item.title_ar ??
+              item.title_en ??
+              item.title ??
+              item.name ??
+              `Project ${idx + 1}`;
+
+            const descriptionRaw =
+              item.description_ar ??
+              item.description_en ??
+              item.description ??
+              item.summary ??
+              item.excerpt ??
+              "";
+
+            const description = String(descriptionRaw)
+              .replace(/<[^>]+>/g, " ")
+              .replace(/\s+/g, " ")
+              .trim();
+
+            // أسماء محتملة لحقل الصورة
+            const main_imageRaw =
+              item.main_image ??
+              item.main_image_url ??
+              item.thumbnail ??
+              item.thumb ??
+              item.cover ??
+              item.featured_main_image ??
+              item.logo ??
+              "/project.png";
+
+            // هنا السحر: لو نسبي يتبني على /public/
+            const main_image = toAbsWithBase(String(main_imageRaw), assetsBase);
+
+            const catRaw =
+              (item.category?.slug ||
+                item.category?.name ||
+                item.category ||
+                item.type ||
+                "web") + "";
+
+            const catLower = catRaw.toLowerCase();
+            const category: Project["category"] =
+              catLower.includes("seo")
+                ? "seo"
+                : catLower.includes("mobile") || catLower.includes("app")
+                ? "mobile"
+                : "web";
+
+            const url =
+              item.url ??
+              item.link ??
+              item.website ??
+              item.permalink ??
+              undefined;
+
+            return { id, title, description, main_image, category, url };
+          });
+
+          setAllProjects(mapped);
         } else {
           if (!wpBase || !categories)
             throw new Error("wpBase & categories are required in wordpress mode");
 
           const [webId, mobileId, seoId] = await Promise.all([
-            wpGetCategoryId(wpBase, categories.web, useProxy),
-            wpGetCategoryId(wpBase, categories.mobile, useProxy),
-            wpGetCategoryId(wpBase, categories.seo, useProxy),
+            wpGetCategoryId(wpBase, categories.web),
+            wpGetCategoryId(wpBase, categories.mobile),
+            wpGetCategoryId(wpBase, categories.seo),
           ]);
           const ids = [webId, mobileId, seoId].filter(Boolean) as number[];
           if (!ids.length) throw new Error("No category IDs found");
 
-          const posts = await wpFetchProjects(wpBase, ids, perPage, useProxy);
+          const posts = await wpFetchProjects(wpBase, ids, perPage);
 
           const idToKey: Record<number, "web" | "mobile" | "seo"> = {};
           if (webId) idToKey[webId] = "web";
@@ -163,7 +242,7 @@ export default function OurProject({
         setLoading(false);
       }
     })();
-  }, [mode, jsonUrl, wpBase, JSON.stringify(categories), perPage, useProxy]);
+  }, [mode, jsonUrl, wpBase, JSON.stringify(categories), perPage]);
 
   const filtered = useMemo(() => {
     if (active === "all") return allProjects;
@@ -176,9 +255,11 @@ export default function OurProject({
         {/* Header */}
         <header className="mb-6 sm:mb-8 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
-            {t("projects.title")}
+            {t("projects.title", "مشاريعنا")}
           </h2>
-          <p className="mt-2 text-slate-600">{t("projects.subtitle")}</p>
+          <p className="mt-2 text-slate-600">
+            {t("projects.subtitle", "Browse our web, mobile and SEO work with quick filters.")}
+          </p>
         </header>
 
         {/* Filters */}
@@ -223,7 +304,7 @@ export default function OurProject({
           {/* Error */}
           {!loading && err && (
             <div className="sm:col-span-2 lg:col-span-3 text-center text-red-600">
-              {t("projects.error")}
+              {t("projects.error", "حدث خطأ أثناء تحميل المشاريع")}
               <div className="text-sm text-slate-500 mt-1">{err}</div>
             </div>
           )}
@@ -233,9 +314,7 @@ export default function OurProject({
             !err &&
             filtered.map((p) => {
               const body =
-                p.description?.length > 160
-                  ? p.description.slice(0, 160) + "…"
-                  : p.description;
+                p.description?.length > 160 ? p.description.slice(0, 160) + "…" : p.description;
 
               const Btn = p.url
                 ? (props: React.HTMLProps<HTMLAnchorElement>) => (
@@ -254,10 +333,13 @@ export default function OurProject({
                 >
                   <div className="w-full">
                     <img
-                      src={p.image || "/project.png"}
+                      src={p.main_image || "/project.png"}
                       alt={p.title}
                       className="w-full h-44 object-cover"
                       loading="lazy"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLmain_imageElement).src = "/project.png";
+                      }}
                     />
                   </div>
                   <div className="p-5 flex-1">
@@ -268,16 +350,18 @@ export default function OurProject({
                         })}
                       </span>
                     </div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-slate-900">
-                      {p.title}
-                    </h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-slate-900">{p.title}</h3>
                     <p className="mt-2 text-slate-700 text-sm">{body}</p>
                   </div>
-                  <div className={isAr ? "pr-5 pb-5" : "pl-5 pb-5"}>
-                    <Btn className="inline-block text-black hover:text-white border border-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-200 font-medium rounded-lg text-sm px-4 py-2">
-                      {t("projects.viewBtn")}
-                    </Btn>
-                  </div>
+                 <div className={isAr ? "pr-5 pb-5" : "pl-5 pb-5"}>
+  <Link
+    to={`${internalLinkBase ?? "/project"}/${p.id}`}
+    className="inline-block text-black hover:text-white border border-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-teal-200 font-medium rounded-lg text-sm px-4 py-2"
+  >
+    {t("projects.viewBtn", "View Project")}
+  </Link>
+</div>
+
                 </article>
               );
             })}

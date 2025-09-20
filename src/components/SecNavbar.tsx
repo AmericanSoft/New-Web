@@ -6,6 +6,8 @@ import { Menu, X } from "lucide-react";
 import "../i18"  
 import { useQuoteModal } from "./QuoteModalContext";
 import { NavLink } from "react-router-dom";
+import logo from '../../public/logo.png'
+
 
 
 
@@ -61,7 +63,7 @@ const SecNavbar: React.FC = () => {
         {/* Logo */}
 
              <NavLink to="/" className="flex items-center gap-2"  aria-label="American Soft"> 
-                <img  src="/logo.png"  alt="American Soft"  className="w-[50px] h-[50px] rounded-full"  />
+                <img  src={logo}  alt="American Soft"  className="w-[50px] h-[50px] rounded-full"  />
              </NavLink>
 
         {/* Desktop Navigation */}
@@ -72,15 +74,15 @@ const SecNavbar: React.FC = () => {
             {t("navbar.home")}
           </NavLink>
 
-          <NavLink to="/" className="nav-link text-current">
+          <NavLink to="/services" className="nav-link text-current">
             {t("navbar.services")}
           </NavLink>
 
-          <NavLink to="#contactus" className="nav-link text-current">
+          <NavLink to="/contactus" className="nav-link text-current">
             {t("navbar.contact")}
           </NavLink>
 
-          <NavLink to="/" className="nav-link text-current">
+          <NavLink to="/projects" className="nav-link text-current">
             {t("navbar.ourProject")}
           </NavLink>
 
@@ -148,12 +150,12 @@ const SecNavbar: React.FC = () => {
 
         <nav className="flex flex-col space-y-8 items-center mt-8 text-black bg-white p-[5em]">
 
-          <NavLink to="/home" className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100">
+          <NavLink to="/" className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100">
             {t("navbar.home")}
           </NavLink>
 
           <NavLink
-            to="/home"
+            to="/"
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100"
             onClick={() => {
               setIsMenuOpen(false);
@@ -164,7 +166,7 @@ const SecNavbar: React.FC = () => {
           </NavLink>
 
           <NavLink
-            to="/home"
+            to="/"
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100"
             onClick={() => {
               setIsMenuOpen(false);
@@ -174,7 +176,7 @@ const SecNavbar: React.FC = () => {
             {t("navbar.services")}
           </NavLink>
 
-          <NavLink to="/blog" className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" onClick={() => {
+          <NavLink to="/" className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = "";
             }}
@@ -183,7 +185,7 @@ const SecNavbar: React.FC = () => {
           </NavLink>
 
           <NavLink
-            to="/blog"
+            to="#contactus"
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100"
             onClick={() => {
               setIsMenuOpen(false);
@@ -196,18 +198,33 @@ const SecNavbar: React.FC = () => {
           <button
             className="RequestQuote"
             style={{
-              color: "black",
+              color: "white",
               backgroundColor: "red",
               padding: "10px",
               borderRadius: "25px",
+              fontWeight:900 , 
             }}
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = "";
-            }}
+ 
+            onClick={open}
+
           >
             {t("navbar.requestQuote") || "Request a Quote"}
           </button>
+
+          <button
+          className="lang"
+          onClick={changeLang}
+          style={{
+            color: "black",
+            backgroundColor: "white",
+            border: "1px solid black",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          {i18n.language.startsWith("ar") ? t("navbar.english") : t("navbar.arabic")}
+        </button>
+
 
         </nav>
 

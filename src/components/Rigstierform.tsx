@@ -108,7 +108,7 @@ const RegisterForm: React.FC = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://american-softwares.com/api/public/index.php/api/register",
+        "https://american-softwares.com/api/register",
         {
           method: "POST",
           headers: {

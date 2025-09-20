@@ -2,17 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import "../i18";
 import { useTranslation } from "react-i18next";
 
+// ✅ انقل الصور إلى: src/assets/
+import bg1 from "../../public/background-section1.png";
+import bg2 from "../../public/background-section2.png";
+import bg3 from "../../public/background-section3.png";
+
 type Card = {
-  bg: string;
+  bg: string;            // URL للصورة بعد الـimport
   badgeKey: string;
   titleKey: string;
-  titleExtraKey?: string; // للجزء الأسود في الكارت التالت
+  titleExtraKey?: string; // للجزء الأبيض في الكارت الثالث
 };
 
 const CARDS: Card[] = [
-  { bg: "/background-section1.png", badgeKey: "whyam.padgeone",  titleKey: "whyam.titleone" },
-  { bg: "/background-section2.png", badgeKey: "whyam.padgetwo",  titleKey: "whyam.titletwo" },
-  { bg: "/background-section3.png", badgeKey: "whyam.padgethree", titleKey: "whyam.titlethree", titleExtraKey: "whyam.titlefour" },
+  { bg: bg1, badgeKey: "whyam.padgeone",   titleKey: "whyam.titleone" },
+  { bg: bg2, badgeKey: "whyam.padgetwo",   titleKey: "whyam.titletwo" },
+  { bg: bg3, badgeKey: "whyam.padgethree", titleKey: "whyam.titlethree", titleExtraKey: "whyam.titlefour" },
 ];
 
 // هوك بسيط لعمل reveal ناعم عند دخول العنصر في الفيو
@@ -97,6 +102,7 @@ function CardItem({
         alt=""
         className="absolute inset-0 h-full w-full object-cover opacity-70 transition-transform duration-700 group-hover:scale-[1.03]"
         loading="lazy"
+        decoding="async"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
 
@@ -112,7 +118,12 @@ function CardItem({
         <h3 className="text-white font-bold leading-tight text-2xl sm:text-3xl md:text-[28px]">
           {t(card.titleKey)}{" "}
           {card.titleExtraKey && (
-            <span className="text-black inline-block bg-white/70 rounded px-2 py-0.5 ml-1">
+            <span
+              className={[
+                "text-black inline-block bg-white/70 rounded px-2 py-0.5",
+                isAr ? "mr-1" : "ml-1",
+              ].join(" ")}
+            >
               {t(card.titleExtraKey)}
             </span>
           )}

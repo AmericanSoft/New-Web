@@ -12,7 +12,7 @@ export default function OurContactus() {
   async function fetchContacts() {
     try {
       const response = await fetch(
-        "https://american-softwares.com/api/public/index.php/api/contact-us",
+        "https://american-softwares.com/api/contact-us",
         { headers: { Accept: "application/json" } }
       );
       const data = await response.json();

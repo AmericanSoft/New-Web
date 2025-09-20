@@ -8,6 +8,8 @@ const SUBJECTS = (t: any) => [
   { value: "mobile_app",        label: t("form.subject.options.mobile_app") || "Mobile Application" },
   { value: "custom_software",   label: t("form.subject.options.custom_software") || "Custom Software" },
   { value: "portfolio_examples",label: t("form.subject.options.portfolio_examples") || "Portfolio / Examples" },
+  { value: "seo_strategy",      label: t("form.subject.options.seo_strategy") || "seo_strategy" },
+
 ];
 
 // خريطة تحويل قيمة الـSubject إلى category_name نصي يظهر كويس في الداشبورد/الـDB
@@ -15,6 +17,7 @@ const SUBJECT_TO_CATEGORY: Record<string, string> = {
   web_design: "Web Design",
   mobile_app: "Mobile Application",
   custom_software: "Custom Software",
+  seo_strategy:"Seo Strategy",
   portfolio_examples: "Portfolio / Examples",
 };
 
@@ -60,7 +63,7 @@ export default function Popupform() {
       setSubmitting(true);
 
       const res = await fetch(
-        "https://american-softwares.com/api/public/index.php/api/contact-us",
+        "https://american-softwares.com/api/contact-us",
         {
           method: "POST",
           headers: {

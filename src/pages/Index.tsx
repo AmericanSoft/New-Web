@@ -11,6 +11,7 @@ import FirstHero from "@/components/First-Hero";
 import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer/Footer";
 import StackedAnimatedTestimonials from "@/components/TestimonialsCard";
+import OurProject from "@/components/OurPorject";
 
 const Index = () => {
 
@@ -72,7 +73,7 @@ const Index = () => {
         <Services />
         <HowItWorks/>
         <Whyamerican />
-        <OurPorject />
+        <OurProject mode="json" jsonUrl="https://american-softwares.com/api/projects"  internalLinkBase="/project" />
         <Blog />
         <StackedAnimatedTestimonials />
         <Newsletter />

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import "../i18"  
 import { useQuoteModal } from "./QuoteModalContext";
+import logo from '../../public/logo.png'
 
 
 
@@ -52,19 +53,26 @@ const Navbar: React.FC = () => {
     <header
       id="navbar"
       className={cn(
-        " flex align-center fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300 ",
-        isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm text-black" : "bg-transparent text-white"
+            "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 flex items-center transition-all duration-300",
+    // موبايل أولاً: أبيض دايمًا
+    "bg-white text-black shadow-sm",
+    // ديسكتوب: شفاف فوق الهيرو، أبيض بعد السكروول
+    isScrolled
+      ? "md:bg-white md:text-black md:shadow-sm"
+      : "md:bg-transparent md:text-white md:shadow-none"
+
       )}
     >
       <div className="container flex items-center justify-around px-4 sm:px-6 lg:px-8">
         {/* Logo */}
 
              <a href="#" className="flex items-center gap-2" onClick={(e) => { e.preventDefault(); scrollToTop(); }} aria-label="American Soft"> 
-                <img  src="/logo.png"  alt="American Soft"  className="w-[50px] h-[50px] rounded-full"  />
+                <img  src={logo}  alt="American Soft"  className="w-[50px] h-[50px] rounded-full"  />
              </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-10">
+
           <a
             href="#"
             className="nav-link text-current"
@@ -75,18 +83,23 @@ const Navbar: React.FC = () => {
           >
             {t("navbar.home")}
           </a>
+
           <a href="#Services" className="nav-link text-current">
             {t("navbar.services")}
           </a>
-          <a href="#contactus" className="nav-link text-current">
-            {t("navbar.contact")}
-          </a>
+
           <a href="#ourproject" className="nav-link text-current">
             {t("navbar.ourProject")}
           </a>
+
           <a href="#blog" className="nav-link text-current">
             {t("navbar.blog")}
           </a>
+
+          <a href="#contactus" className="nav-link text-current">
+            {t("navbar.contact")}
+          </a>
+
           <button
             className="RequestQuote"
             style={{
@@ -103,7 +116,8 @@ const Navbar: React.FC = () => {
             {t("navbar.requestQuote") || "Request a Quote"}
           </button>
 
-                  {/* Language switch */}
+         {/* Language switch */}
+         
         <button
           className="lang"
           onClick={changeLang}
@@ -124,20 +138,21 @@ const Navbar: React.FC = () => {
         <button
           className={cn(
             "md:hidden p-3 focus:outline-none",
-            (isMenuOpen || isScrolled) ? "text-black" : "text-white"
+            (isMenuOpen || isScrolled) ? "text-black" : "text-black"
           )}
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
+
       </div>
 
       {/* Mobile Navbaar  */}
       <div
         className={cn(
           "fixed inset-0 z-40 bg-white flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out",
-          isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
+          isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none bg-white"
         )}
         role="dialog"
         aria-modal="true"
@@ -200,18 +215,34 @@ const Navbar: React.FC = () => {
           <button
             className="RequestQuote"
             style={{
-              color: "black",
+              color: "white",
               backgroundColor: "red",
               padding: "10px",
               borderRadius: "25px",
+              fontWeight:900 , 
             }}
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = "";
-            }}
+ 
+            onClick={open}
+
           >
             {t("navbar.requestQuote") || "Request a Quote"}
           </button>
+
+          <button
+          className="lang"
+          onClick={changeLang}
+          style={{
+            color: "black",
+            backgroundColor: "white",
+            border: "1px solid black",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          {i18n.language.startsWith("ar") ? t("navbar.english") : t("navbar.arabic")}
+        </button>
+
+
         </nav>
       </div>
     </header>

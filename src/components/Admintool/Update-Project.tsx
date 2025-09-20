@@ -26,7 +26,7 @@ export default function UpdateProject({ project, onProjectUpdated, onCancel }) {
       const method = "PUT";
 
       const response = await fetch(
-        `https://american-softwares.com/api/public/index.php/api/projects/${project.id}`,
+        `https://american-softwares.com/api/projects/${project.id}`,
         {
           method,
           headers: {

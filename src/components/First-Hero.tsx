@@ -6,9 +6,13 @@ import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import type { Engine, Container } from "tsparticles-engine";
 import { useCallback } from "react";
+import { NavLink } from "react-router-dom";
+import { useQuoteModal } from "./QuoteModalContext";
+
 
 const FirstHero = () => {
   const { t, i18n } = useTranslation();
+      const { open } = useQuoteModal();
 
   const changLang = () => {
     const newLang = i18n.language === "ar" ? "en" : "ar";
@@ -98,6 +102,7 @@ const FirstHero = () => {
               <Button
                 size="lg"
                 className="gradient-primary text-white hover:shadow-glow transition-all duration-300 px-8 py-6 text-lg font-semibold transform hover:scale-105"
+                onClick={open}
               >
                 {t("hero.startproject")}
                 <svg
@@ -114,12 +119,13 @@ const FirstHero = () => {
                   />
                 </svg>
               </Button>
+              
               <Button
                 variant="outline"
                 size="lg"
                 className="border-white/30 text-dark-900 hover:bg-white/10 hover:border-primary/50 transition-all duration-300 px-8 py-6 text-lg font-semibold backdrop-blur-sm hover:text-slate-200"
               >
-                {t("hero.portfolio")}
+               <NavLink to="/projects"> {t("hero.portfolio")}</NavLink>
               </Button>
             </div>
           </div>

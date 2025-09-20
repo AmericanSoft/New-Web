@@ -8,15 +8,10 @@ export default function AllProjectsPage() {
       <SecNavbar />
       <div className="pt-32"></div>
       <OurProject
-        rtl
-        mode="wordpress"
-        wpBase="https://your-site.com"
-        categories={{ web: "web", mobile: "mobile", seo: "seo" }}
-        perPage={18}
-        useProxy={true}         // في الإنتاج الأفضل تعمل API Route وتخلي false
-        internalLinkBase="/project"
-        
-      />
+       mode="json"
+       jsonUrl="https://american-softwares.com/api/projects"
+       internalLinkBase="/project" // لو عندك صفحة تفاصيل داخلية
+     />
       <Footer />
     </>
   );

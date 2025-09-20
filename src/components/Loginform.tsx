@@ -123,7 +123,7 @@ const LoginForm: React.FC = () => {
       }
 
       const response = await fetch(
-        "https://american-softwares.com/api/public/index.php/api/login",
+        "https://american-softwares.com/api/login",
         {
           method: "POST",
           headers: {

@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import "../i18";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import img1 from '../../public/background-section1.png';
+import img2 from '../../public/background-section2.png';
+import img3 from '../../public/background-section3.png';
+
+
 
 const DetailsSection = () => {
   const { t, i18n } = useTranslation();
@@ -18,10 +23,14 @@ const DetailsSection = () => {
     fullName: "",
     email: "",
     company: "",
-    Subject: "", // ← مهم: مربوط بالـselect الجديد
+    Subject: "",
+    notes: "", // ⬅️ جديد: ملاحظات
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  // ⬅️ وسّعنا النوع عشان يدعم textarea
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -47,14 +56,15 @@ const DetailsSection = () => {
       email: "",
       company: "",
       Subject: "",
+      notes: "", // ⬅️ نصفر الملاحظات
     });
   };
 
-  // خيارات الموضوع (value ثابتة – النص من i18n)
   const SUBJECT_OPTIONS = [
     { value: "web_design", label: t("form.subject.options.web_design") || "Web Design" },
     { value: "mobile_app", label: t("form.subject.options.mobile_app") || "Mobile Application" },
     { value: "custom_software", label: t("form.subject.options.custom_software") || "Custom Software" },
+    { value: "seo_strategy", label: t("form.subject.options.seo_strategy") || "Seo Strategy" },
     { value: "portfolio_examples", label: t("form.subject.options.portfolio_examples") || "Portfolio / Examples" },
   ];
 
@@ -62,7 +72,7 @@ const DetailsSection = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://american-softwares.com/api/public/index.php/api/contact-us",
+        "https://american-softwares.com/api/contact-us",
         {
           method: "POST",
           headers: {
@@ -97,7 +107,7 @@ const DetailsSection = () => {
             <div
               className="relative h-48 sm:h-64 p-6 sm:p-8 flex items-end"
               style={{
-                backgroundImage: "url('/background-section3.png')",
+                backgroundImage: `url(${img1})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -149,7 +159,7 @@ const DetailsSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100">
-                      <span className="font-semibold text-base">{t("contactus.phone")} :</span> +201080002209
+                      <span className="font-semibold text-base">{t("contactus.phone")} :</span> +201080877774
                     </div>
                   </div>
                 </div>
@@ -200,7 +210,7 @@ const DetailsSection = () => {
             <div
               className="relative h-48 sm:h-64 p-6 sm:p-8 flex flex-col items-start"
               style={{
-                backgroundImage: "url('/background-section1.png')",
+                backgroundImage: `url(${img2})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -253,7 +263,7 @@ const DetailsSection = () => {
                   />
                 </div>
 
-                {/* ▼▼▼ الموضوع بخصوص (Select) ▼▼▼ */}
+                {/* Select */}
                 <div>
                   <select
                     name="Subject"
@@ -262,7 +272,7 @@ const DetailsSection = () => {
                     className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-pulse-500 focus:border-transparent"
                     required
                   >
-                    <option value="" className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-700">
+                    <option value="">
                       {t("form.subject.placeholder") || "Select a subject"}
                     </option>
                     {SUBJECT_OPTIONS.map((opt) => (
@@ -272,7 +282,23 @@ const DetailsSection = () => {
                     ))}
                   </select>
                 </div>
-                {/* ▲▲▲ نهاية الـSelect ▲▲▲ */}
+
+                {/* ⬇️ جديد: حقل الملاحظات */}
+                <div>
+                  <textarea
+                    name="notes"
+                    value={formData.notes}
+                    onChange={handleChange}
+                    placeholder={t("form.notesPlaceholder") || "أي ملاحظات أو تفاصيل إضافية…"}
+                    rows={4}
+                    maxLength={1000}
+                    dir="auto"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pulse-500 focus:border-transparent resize-y"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">
+                    {t("form.notesHint") || "اختياري — بحد أقصى 1000 حرف."}
+                  </p>
+                </div>
 
                 <div>
                   <button

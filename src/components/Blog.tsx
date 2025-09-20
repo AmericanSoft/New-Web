@@ -2,7 +2,7 @@
 import   "../i18";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-
+import imgblog from '../../public/blog.png'
 
 const Blog = () => {
 
@@ -33,7 +33,7 @@ const Blog = () => {
 
           <div className="w-full">
             <img 
-              src="..\public\blog.png" 
+              src={imgblog}
               alt="Advanced humanoid robot with orange and white design" 
               className="w-full h-auto object-cover"
             />

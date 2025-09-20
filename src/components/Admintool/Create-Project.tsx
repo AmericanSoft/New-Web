@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 export default function CreateProject({ onProjectCreated }) {
   const [form, setForm] = useState({
     title: "",
@@ -59,7 +60,7 @@ export default function CreateProject({ onProjectCreated }) {
 
     try {
       const response = await fetch(
-        "https://american-softwares.com/api/public/index.php/api/projects",
+        "https://american-softwares.com/api/projects",
         {
           method: "POST",
           headers: {
