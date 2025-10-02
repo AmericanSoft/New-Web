@@ -1,0 +1,31 @@
+// src/components/our-services/defaults.js
+export const DEFAULT_SERVICES = {
+  en: [
+    { icon: "/assets/web.png",    title: "Web Development",
+      desc: "Fast, responsive, and modern websites that elevate your online presence and drive results." },
+    { icon: "/assets/mobile.png", title: "Mobile App Development",
+      desc: "Intuitive and engaging mobile apps for iOS and Android delivering seamless user experiences." },
+    { icon: "/assets/uiux.png",   title: "UI/UX Design",
+      desc: "Human-centered designs that ensure usability, aesthetics, and delightful digital experiences." },
+    { icon: "/assets/cloud.png",  title: "Cloud Solutions",
+      desc: "Secure, scalable, and cost-effective cloud infrastructure to power your digital transformation." },
+    { icon: "/assets/it.png",     title: "IT Consulting",
+      desc: "Expert guidance to align technology with your business goals and boost efficiency." },
+    { icon: "/assets/erp.png",    title: "ERP Systems",
+      desc: "Integrated solutions to streamline operations and improve decision-making." },
+  ],
+  ar: [
+    { icon: "/assets/web.png",    title: "تطوير الويب",
+      desc: "مواقع سريعة ومتجاوبة وحديثة تعزّز حضورك الرقمي وتُحقق نتائج ملموسة." },
+    { icon: "/assets/mobile.png", title: "تطوير تطبيقات الموبايل",
+      desc: "تطبيقات جذّابة وسلسة لـ iOS وAndroid بتجربة استخدام متميزة." },
+    { icon: "/assets/uiux.png",   title: "تصميم واجهة وتجربة المستخدم",
+      desc: "تصاميم متمحورة حول الإنسان توازن بين سهولة الاستخدام والجمال." },
+    { icon: "/assets/cloud.png",  title: "حلول السحابة",
+      desc: "بنية سحابية آمنة وقابلة للتوسّع وفعّالة من حيث التكلفة للتحوّل الرقمي." },
+    { icon: "/assets/it.png",     title: "الاستشارات التقنية",
+      desc: "توجيه خبير لمواءمة التقنية مع أهداف عملك ورفع الكفاءة." },
+    { icon: "/assets/erp.png",    title: "أنظمة ERP",
+      desc: "حلول متكاملة لتبسيط العمليات وتحسين اتخاذ القرار." },
+  ],
+};
