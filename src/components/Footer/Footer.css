@@ -171,13 +171,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .new_footer_top .footer_bg .footer_bg_one {
-    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEia0PYPxwT5ifToyP3SNZeQWfJEWrUENYA5IXM6sN5vLwAKvaJS1pQVu8mOFFUa_ET4JuHNTFAxKURFerJYHDUWXLXl1vDofYXuij45JZelYOjEFoCOn7E6Vxu0fwV7ACPzArcno1rYuVxGB7JY6G7__e4_KZW4lTYIaHSLVaVLzklZBLZnQw047oq5-Q/s16000/volks.gif") no-repeat center center;
+    background: url("https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bTh0cmd1czkyYmlhM2toN2twdGcxcGF1cXRpcTR0aXEwcHB1czZ2ZSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/20NLMBm0BkUOwNljwv/giphy.gif") no-repeat center center;
     width: 330px;
     height: 105px;
-  background-size:100%;
+  background-size:50%;
     position: absolute;
     bottom: 0;
     left: 30%;
+    background-color: transparent;
     -webkit-animation: myfirst 22s linear infinite;
     animation: myfirst 22s linear infinite;
 }

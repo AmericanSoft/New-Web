@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -11,26 +11,54 @@ import Footer from "./Footer/Footer";
 
 // ===== Helpers =====
 const API_SHOW = (id: string | number) =>
-  `https://american-softwares.com/api/projects/${id}`;
+  `https://sfgukli.american-softwares.com/api/projects/${id}`;
 
-/** يبني base مثل: https://american-softwares.com/api/public/ */
+/** يبني base مثل: https://american-softwares.com/api/public/ (يدويًا عند الحاجة) */
 function assetsBaseFromShowUrl(showUrl: string) {
   try {
     const u = new URL(showUrl);
+
+    // لو API قديم فيه /public/ نرجّعها كما هي
     const m = u.href.match(/^(https?:\/\/[^?#]+\/public\/)/);
-    return m ? m[1] : u.origin + "/";
+    if (m) return m[1];
+
+    // الافتراضي مع الدومين الجديد: خزن الملفات تحت /storage/
+    return u.origin + "/storage/";
   } catch {
-    return "https://american-softwares.com/api/public/";
+    return "https://sfgukli.american-softwares.com/storage/";
   }
 }
-const toAbs = (u?: string, base?: string) => {
-  if (!u) return "";
+
+/** يحوّل أي مسار لصورة لمسار مطلق ويضمن إضافة /storage/ قبل /projects/ */
+function ensureStorageAbsolute(path?: string, showUrl?: string) {
+  if (!path) return "";
   try {
-    return new URL(u, base).href;
+    const fallbackOrigin = "https://sfgukli.american-softwares.com";
+    const base = showUrl ? new URL(showUrl).origin : fallbackOrigin;
+
+    // حوّله لمطلق أولاً (لو كان نسبي)
+    const abs = new URL(path, base + "/").href;
+    const absUrl = new URL(abs);
+
+    // لو بالفعل داخل /storage/ خلاص
+    if (absUrl.pathname.startsWith("/storage/")) return absUrl.href;
+
+    // لو المسار يبدأ بـ /projects/ (أو projects/)، أضِف /storage/ قبله
+    if (
+      absUrl.pathname.startsWith("/projects/") ||
+      absUrl.pathname.startsWith("projects/")
+    ) {
+      // نتأكد إن /storage/ في البداية
+      const normalizedPath = absUrl.pathname.replace(/^\/?/, ""); // أزل بداية /
+      absUrl.pathname = "/storage/" + normalizedPath;
+      return absUrl.href;
+    }
+
+    return absUrl.href;
   } catch {
-    return u;
+    return path!;
   }
-};
+}
 
 // يضمن وجود http/https في اللينك
 const withHttp = (url?: string) =>
@@ -48,7 +76,7 @@ export default function SingleProjectDetails() {
   useEffect(() => {
     if (!id) return;
     const showUrl = API_SHOW(id);
-    const base = assetsBaseFromShowUrl(showUrl);
+    const base = assetsBaseFromShowUrl(showUrl); // احتياطي لو احتجناه لاحقًا
 
     (async () => {
       try {
@@ -61,20 +89,24 @@ export default function SingleProjectDetails() {
 
         const p = raw.project || raw;
 
-        // main_image: يقبل مطلق/نسبي
-        const mainImageRaw =
-          p.main_image || p.image || p.cover || p.thumbnail || "/project.png";
-        const main_image = toAbs(String(mainImageRaw), base);
+        // main_image: يقبل مطلق/نسبي + نضمن /storage/
+        const mainImageRaw = p.main_image || p.image || p.cover || p.thumbnail;
+        const main_image = ensureStorageAbsolute(String(mainImageRaw), showUrl);
 
-        // other_images: صفيف مسارات — بنحوّل لكل عنصر مسار مطلق
+        // other_images: نحول لكل عنصر مطلق + نضمن /storage/
         const otherImages: string[] = Array.isArray(p.other_images)
-          ? p.other_images.map((x: any) => toAbs(String(x), base))
+          ? p.other_images.map((x: any) =>
+              ensureStorageAbsolute(String(x), showUrl)
+            )
           : [];
 
         const normalized = {
           id: p.id,
           title: p.title || p.title_ar || p.title_en || "Project",
-          description: (p.description_ar || p.description_en || p.description || "")
+          description: (p.description_ar ||
+            p.description_en ||
+            p.description ||
+            "")
             .toString()
             .replace(/<[^>]+>/g, " ")
             .replace(/\s+/g, " ")
@@ -133,7 +165,7 @@ export default function SingleProjectDetails() {
           <div className="grid gap-8 lg:grid-cols-2 items-start">
             <div>
               <img
-                src={project.main_image || "/project.png"}
+                src={project.main_image}
                 alt={project.title}
                 className="w-full rounded-2xl border border-gray-200 object-cover shadow-sm"
                 onError={(e) => {
@@ -146,7 +178,9 @@ export default function SingleProjectDetails() {
               <h2 className="mb-3 text-xl sm:text-2xl font-bold text-slate-900">
                 {t("project.about", "نبذة عن المشروع")}
               </h2>
-              <p className="mb-5 leading-7 text-gray-700">{project.description}</p>
+              <p className="mb-5 leading-7 text-gray-700">
+                {project.description}
+              </p>
 
               <div className="space-y-2 text-sm text-gray-800">
                 <p>
@@ -229,7 +263,8 @@ export default function SingleProjectDetails() {
                       alt={`Other ${idx + 1}`}
                       className="h-[400px] w-full rounded-xl object-cover shadow-md"
                       onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = "/project.png";
+                        (e.currentTarget as HTMLImageElement).src =
+                          "/project.png";
                       }}
                     />
                   </SwiperSlide>
@@ -248,7 +283,8 @@ export default function SingleProjectDetails() {
                     alt={`Other ${idx + 1}`}
                     className="h-56 w-full rounded-xl object-cover shadow"
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = "/project.png";
+                      (e.currentTarget as HTMLImageElement).src =
+                        "/project.png";
                     }}
                   />
                 </div>

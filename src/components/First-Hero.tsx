@@ -119,14 +119,15 @@ const FirstHero = () => {
                   />
                 </svg>
               </Button>
-              
+              <NavLink to="/projects">
               <Button
                 variant="outline"
                 size="lg"
                 className="border-white/30 text-dark-900 hover:bg-white/10 hover:border-primary/50 transition-all duration-300 px-8 py-6 text-lg font-semibold backdrop-blur-sm hover:text-slate-200"
               >
-               <NavLink to="/projects"> {t("hero.portfolio")}</NavLink>
+                {t("hero.portfolio")}
               </Button>
+              </NavLink>
             </div>
           </div>
 

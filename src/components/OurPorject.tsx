@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../i18";
 import { useTranslation } from "react-i18next";
 
+/* ==================== Types ==================== */
 type Project = {
   id: number | string;
   title: string;
@@ -24,7 +25,7 @@ type Props = {
   perPage?: number;
 
   // JSON
-  jsonUrl?: string; // مثال: https://american-softwares.com/api/projects
+  jsonUrl?: string; // مثال: https://sfgukli.american-softwares.com/api/projects
 
   // internal details route
   internalLinkBase?: string;
@@ -37,26 +38,45 @@ async function fetchJson<T = any>(url: string): Promise<T> {
   return (await r.json()) as T;
 }
 
-// يبني base صحيح للصور من jsonUrl (يلتقط حتى /public/)
-function makeAssetsBase(jsonUrl: string | undefined) {
-  if (!jsonUrl) return "";
-  try {
-    const u = new URL(jsonUrl);
-    const m = u.href.match(/^(https?:\/\/[^?#]+\/public\/)/);
-    // لو لقى /public/ يستخدمه، غير كده يرجع origin
-    return m ? m[1] : u.origin + "/";
-  } catch {
-    return "";
-  }
+
+
+// جد قائمة احتمالات لمسار الصورة، وجرّبها واحدة واحدة
+
+
+function SmartImage({
+  rawSrc,
+  origin,
+  alt,
+  className,
+}: {
+  rawSrc: string;
+  origin: string;
+  alt: string;
+  className?: string;
+}) {
+  const [tries, setTries] = React.useState(0);
+  const candidates = React.useMemo(() => buildImageCandidates(rawSrc, origin), [rawSrc, origin]);
+  const src = candidates[Math.min(tries, candidates.length - 1)] || "/project.png";
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={() => {
+        if (tries < candidates.length - 1) {
+          console.warn("Image failed, trying next:", src);
+          setTries((n) => n + 1);
+        } else if (!src.endsWith("/project.png")) {
+          console.warn("All candidates failed, fallback -> /project.png");
+          setTries(candidates.length);
+        }
+      }}
+      onLoad={() => console.debug("Image loaded:", src)}
+    />
+  );
 }
-const toAbsWithBase = (u: string | undefined, base: string) => {
-  if (!u) return "";
-  try {
-    return new URL(u, base || undefined).href;
-  } catch {
-    return u;
-  }
-};
 
 /* ==================== WordPress Helpers (اختياري) ==================== */
 async function wpGetCategoryId(base: string, slug: string) {
@@ -87,6 +107,83 @@ function wpMapToProject(post: any, catKey: string): Project {
 const TAB_KEYS = ["all", "web", "mobile", "seo"] as const;
 type TabKey = typeof TAB_KEYS[number];
 
+
+// helpers
+function getOrigin(fromUrl?: string) {
+  try { return new URL(fromUrl!).origin; } catch { return ""; }
+}
+
+function buildImageCandidates(raw: string | undefined, origin: string) {
+  if (!raw) return ["/project.png"];
+
+  let url = String(raw).trim();
+
+  // مطلق؟ خليه أول محاولة
+  if (/^https?:\/\//i.test(url)) return [url, "/project.png"];
+
+  // شيل السلاشات في الأول
+  const path = url.replace(/^\/+/, "");
+
+  // لو جاي "projects/filename.png" أو "/projects/..."
+  if (/^projects\//i.test(path)) {
+    const file = path.replace(/^projects\//i, "");
+    return [
+      `${origin}/storage/projects/${file}`,
+      `${origin}/index.php/storage/projects/${file}`,
+      `${origin}/projects/${file}`,
+      `${origin}/index.php/projects/${file}`,
+      "/project.png",
+    ];
+  }
+
+  // لو جاي "storage/..." أو "public/..."
+  if (/^(storage|public)\//i.test(path)) {
+    return [
+      `${origin}/${path}`,
+      `${origin}/index.php/${path}`,
+      "/project.png",
+    ];
+  }
+
+  // أي مسار نسبي تاني
+  return [
+    `${origin}/${path}`,
+    `${origin}/index.php/${path}`,
+    "/project.png",
+  ];
+}
+
+// Img ذكية تجرب مصادر متعددة
+function SmartImg({
+  raw,
+  origin,
+  alt,
+  className,
+}: {
+  raw: string | undefined;
+  origin: string;
+  alt: string;
+  className?: string;
+}) {
+  const [i, setI] = React.useState(0);
+  const candidates = React.useMemo(() => buildImageCandidates(raw, origin), [raw, origin]);
+  const src = candidates[Math.min(i, candidates.length - 1)];
+  cons
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={() => {
+        if (i < candidates.length - 1) setI(i + 1);
+      }}
+    />
+  );
+}
+
+
 /* ==================== Component ==================== */
 export default function OurProject({
   rtl,
@@ -105,6 +202,8 @@ export default function OurProject({
   const [allProjects, setAllProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
+
+  const origin = useMemo(() => getOrigin(mode === "json" ? jsonUrl : wpBase), [mode, jsonUrl, wpBase]);
 
   const TAB_LABELS = useMemo(
     () => ({
@@ -126,9 +225,6 @@ export default function OurProject({
           if (!jsonUrl) throw new Error("jsonUrl is required in json mode");
 
           const raw = await fetchJson<any>(jsonUrl);
-
-          // يلتقط حتى /public/ عشان الصور النسبية
-          const assetsBase = makeAssetsBase(jsonUrl);
 
           // يدعم أشكال مختلفة: [] أو {data:[]} أو {projects:[]}
           const list: any[] = Array.isArray(raw)
@@ -162,8 +258,8 @@ export default function OurProject({
               .replace(/\s+/g, " ")
               .trim();
 
-            // أسماء محتملة لحقل الصورة
-            const main_imageRaw =
+            // أسماء محتملة لحقل الصورة (نمرر كما هو لـ SmartImage)
+            const main_image =
               item.main_image ??
               item.main_image_url ??
               item.thumbnail ??
@@ -172,9 +268,6 @@ export default function OurProject({
               item.featured_main_image ??
               item.logo ??
               "/project.png";
-
-            // هنا السحر: لو نسبي يتبني على /public/
-            const main_image = toAbsWithBase(String(main_imageRaw), assetsBase);
 
             const catRaw =
               (item.category?.slug ||
@@ -264,7 +357,7 @@ export default function OurProject({
 
         {/* Filters */}
         <div className="mb-6 flex flex-wrap gap-2 justify-center">
-          {TAB_KEYS.map((key) => {
+          {(["all", "web", "mobile", "seo"] as TabKey[]).map((key) => {
             const activeTab = active === key;
             return (
               <button
@@ -316,32 +409,21 @@ export default function OurProject({
               const body =
                 p.description?.length > 160 ? p.description.slice(0, 160) + "…" : p.description;
 
-              const Btn = p.url
-                ? (props: React.HTMLProps<HTMLAnchorElement>) => (
-                    <a {...props} href={p.url} target="_blank" rel="noopener noreferrer" />
-                  )
-                : internalLinkBase
-                ? (props: React.HTMLProps<HTMLAnchorElement>) => (
-                    <Link {...(props as any)} to={`${internalLinkBase}/${p.id}`} />
-                  )
-                : (props: React.HTMLProps<HTMLAnchorElement>) => <span {...props} />;
-
               return (
                 <article
                   key={p.id}
                   className="rounded-2xl overflow-hidden shadow-elegant bg-white flex flex-col"
                 >
                   <div className="w-full">
-                    <img
-                      src={p.main_image || "/project.png"}
+
+                    <SmartImage
+                      rawSrc={`/storage/${p.main_image}`}
+                      origin={origin}
                       alt={p.title}
                       className="w-full h-44 object-cover"
-                      loading="lazy"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLmain_imageElement).src = "/project.png";
-                      }}
                     />
                   </div>
+
                   <div className="p-5 flex-1">
                     <div className="mb-2">
                       <span className="rounded-full border border-slate-200 px-2.5 py-0.5 text-[11px] font-semibold text-slate-700 bg-white/60">
@@ -353,15 +435,15 @@ export default function OurProject({
                     <h3 className="text-lg sm:text-xl font-semibold text-slate-900">{p.title}</h3>
                     <p className="mt-2 text-slate-700 text-sm">{body}</p>
                   </div>
-                 <div className={isAr ? "pr-5 pb-5" : "pl-5 pb-5"}>
-  <Link
-    to={`${internalLinkBase ?? "/project"}/${p.id}`}
-    className="inline-block text-black hover:text-white border border-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-teal-200 font-medium rounded-lg text-sm px-4 py-2"
-  >
-    {t("projects.viewBtn", "View Project")}
-  </Link>
-</div>
 
+                  <div className={(isAr ? "pr-5" : "pl-5") + " pb-5"}>
+                    <Link
+                      to={`${internalLinkBase ?? "/project"}/${p.id}`}
+                      className="inline-block text-black hover:text-white border border-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-teal-200 font-medium rounded-lg text-sm px-4 py-2"
+                    >
+                      {t("projects.viewBtn", "View Project")}
+                    </Link>
+                  </div>
                 </article>
               );
             })}

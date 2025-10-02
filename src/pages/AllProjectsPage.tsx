@@ -9,7 +9,7 @@ export default function AllProjectsPage() {
       <div className="pt-32"></div>
       <OurProject
        mode="json"
-       jsonUrl="https://american-softwares.com/api/projects"
+       jsonUrl="https://sfgukli.american-softwares.com/api/projects"
        internalLinkBase="/project" // لو عندك صفحة تفاصيل داخلية
      />
       <Footer />

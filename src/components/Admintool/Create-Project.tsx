@@ -60,7 +60,7 @@ export default function CreateProject({ onProjectCreated }) {
 
     try {
       const response = await fetch(
-        "https://american-softwares.com/api/projects",
+        "https://sfgukli.american-softwares.com/api/projects",
         {
           method: "POST",
           headers: {

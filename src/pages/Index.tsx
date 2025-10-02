@@ -73,7 +73,7 @@ const Index = () => {
         <Services />
         <HowItWorks/>
         <Whyamerican />
-        <OurProject mode="json" jsonUrl="https://american-softwares.com/api/projects"  internalLinkBase="/project" />
+        <OurProject mode="json" jsonUrl="https://sfgukli.american-softwares.com/api/projects"  internalLinkBase="/project" />
         <Blog />
         <StackedAnimatedTestimonials />
         <Newsletter />

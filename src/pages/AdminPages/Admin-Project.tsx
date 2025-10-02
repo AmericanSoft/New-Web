@@ -10,7 +10,7 @@ export default function OurProjects() {
   const [editingProject, setEditingProject] = useState<any | null>(null);
 
   useEffect(() => {
-    fetch("https://american-softwares.com/api/projects")
+    fetch("https://sfgukli.american-softwares.com/api/projects")
       .then((res) => res.json())
       .then((data) => {
         setProjects(data?.data || data || []);
@@ -85,7 +85,7 @@ export default function OurProjects() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => {
             const imageUrl = project?.main_image
-              ? `${project.main_image}`
+              ? `https://sfgukli.american-softwares.com/storage/${project.main_image}`
               : "/assets/default.png";
 
             return (
@@ -95,7 +95,7 @@ export default function OurProjects() {
               >
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <img
-                    src={imageUrl}
+                    src={`${imageUrl}`}
                     alt={project.title || "Project"}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     loading="lazy"

@@ -23,7 +23,7 @@ import IOSAppPage from "./pages/IOSAppPage.tsx";
 import DesktopAppPage from "./pages/DesktopAppPage.tsx";
 import AllProjectsPage from "./pages/AllProjectsPage.tsx";
 import AndroidAppPage from "./pages/AndroidAppPage.tsx";
-import ContactPage from "./pages/Contactus.tsx";
+import ContactPage from "./pages/ContactusPage.tsx";
 import ServicesPage from './pages/OurServcies.tsx'
 
 const queryClient = new QueryClient();

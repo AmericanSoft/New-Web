@@ -113,6 +113,8 @@ i18n
             username:"Youe Name  " ,
             mail:"Your Mail " ,
             phone:"Phone",
+            country:"Country" ,
+            phoneHint:"Phone Hint",
             notesLabel:"Notes ", 
             company:" Company ( OPtional  )" ,
             btnform:" Submit  ",
@@ -241,7 +243,7 @@ cta: "To exercise your rights, contact us at"
 },
 children: { p1: "Our services target adults; we do not knowingly collect data from children. If you believe a child provided data, please contact us." },
 changes: { p1: "We may update this policy from time to time. Continued use means you accept the updated version; check the date above." },
-contact: { email: "americansoft8@gmail.com", phone: "01080877774", address: "Egypt , Giza , Haram" }
+contact: { email: "americansoft8@gmail.com", phone: "01080002209", address: "Egypt , Giza , Haram" }
           },
 
 
@@ -326,7 +328,7 @@ contact: { email: "americansoft8@gmail.com", phone: "01080877774", address: "Egy
   company: "American Group for Software & Marketing",
   email: "americansoft8@gmail.com",
   address: "Cairo, Egypt",
-  phone: "01080877774",
+  phone: "01080002209",
   lastUpdatedFallback: "Sep 16, 2025",
 
   headerTitle: "Terms & Conditions — {{brand}}",
@@ -406,7 +408,7 @@ contact: { email: "americansoft8@gmail.com", phone: "01080877774", address: "Egy
     brand: "American Soft",
     company: "American Group for Software & Marketing",
     email: "americansoft8@gmail.com",
-    phone: "01080877774",
+    phone: "01080002209",
     address: "Cairo, Egypt",
     website: "https://americansoft.example.com"
   },
@@ -693,6 +695,8 @@ contact: { email: "americansoft8@gmail.com", phone: "01080877774", address: "Egy
             username:"اسمك " ,
             mail:"بريدك الالكتروني " ,
             phone:" رقم الهاتف " ,
+            country:"الدولة" ,
+            phoneHint:"تعليمات كتابة  الرقم ", 
             notesLabel:"ملاحظات اضافية ",
             notesPlaceholder:"اترك ملاحظاتك او اي معلومات بخصوص مشروعك ",
             notesHint:"اترك ملاحظاتك ",
@@ -746,7 +750,7 @@ brand: "امريكان سوفت",
 company: "American Group for Software & Marketing",
 email: "americansoft8@gmail.com",
 address: "مصر – الجيزة – الهرم",
-phone: "01080877774",
+phone: "01080002209",
 website: "https://americangroup-eg.com",
 headerTitle: "سياسة الخصوصية — {{brand}}",
 lastUpdatedLabel: "آخر تحديث:",
@@ -874,7 +878,7 @@ contact: { email: "البريد الإلكتروني", phone: "الهاتف", ad
   company: "American Group for Software & Marketing",
   email: "americansoft8@gmail.com",
   address: "مصر – القاهرة",
-  phone: "01080877774",
+  phone: "01080002209",
   lastUpdatedFallback: "16 سبتمبر 2025",
 
   headerTitle: "شروط وأحكام الاستخدام — {{brand}}",
@@ -954,7 +958,7 @@ contact: { email: "البريد الإلكتروني", phone: "الهاتف", ad
     brand: "American Soft",
     company: "American Group for Software & Marketing",
     email: "americansoft8@gmail.com",
-    phone: "01080877774",
+    phone: "01080002209",
     address: "مصر – القاهرة",
     website: "https://americansoft.example.com"
   },

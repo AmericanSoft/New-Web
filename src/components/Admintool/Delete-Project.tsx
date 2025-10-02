@@ -1,5 +1,5 @@
 export async function deleteProject(id) {
-  const response = await fetch(`https://american-softwares.com/api/projects/${id}`, {
+  const response = await fetch(`https://sfgukli.american-softwares.com/api/projects/${id}`, {
     method: "DELETE",
     headers: {
 

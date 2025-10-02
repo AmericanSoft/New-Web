@@ -12,7 +12,7 @@ export default function ContactDelete({ id, onDeleteSuccess, className = "" }) {
       setLoading(true);
 
       const response = await fetch(
-        `https://american-softwares.com/api/contact-us/${id}`,
+        `https://sfgukli.american-softwares.com/api/contact-us/${id}`,
         {
           method: "DELETE",
           headers: {
