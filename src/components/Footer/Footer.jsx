@@ -61,19 +61,42 @@ export default function Footer() {
   return (
     <Box as="footer" bg={bg} position="relative" overflowX="hidden" dir={t.dir}>
       {/* Top */}
-      <Box pt={{ base: 16, md: 24 }} pb={{ base: 28, md: 44 }} position="relative">
+      <Box
+        pt={{ base: 16, md: 24 }}
+        pb={{ base: 28, md: 44 }}
+        position="relative"
+      >
         <Container maxW="6xl">
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 10, md: 12 }}>
-            <SubscribeCard
-              title={t.getin}
-              subtitle={t.dontmiss}
-              placeholder={t.mail}
-              cta={t.subscribe}
-              onSubmit={handleSubmit}
-            />
-            <LinkList title={t.pages} links={t.navPages} />
-            <LinkList title={t.help} links={helpLinks} />
-            <SocialLinks title={t.social} langBtn={t.langBtn} onLangToggle={changeLang} />
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 4 }}
+            spacing={{ base: 10, md: 12 }}
+            // ✅ تمركز على الموبايل
+            justifyItems={{ base: "center", md: "stretch" }}
+            alignItems={{ base: "center", md: "start" }}
+            textAlign={{ base: "center", md: "start" }}
+          >
+            {/* نلف كل عنصر ببوكس يوسّطه على الموبايل */}
+            <Box w="full" maxW={{ base: "26rem", md: "unset" }} mx={{ base: "auto", md: 0 }}>
+              <SubscribeCard
+                title={t.getin}
+                subtitle={t.dontmiss}
+                placeholder={t.mail}
+                cta={t.subscribe}
+                onSubmit={handleSubmit}
+              />
+            </Box>
+
+            <Box w="full" maxW={{ base: "26rem", md: "unset" }} mx={{ base: "auto", md: 0 }}>
+              <LinkList title={t.pages} links={t.navPages} />
+            </Box>
+
+            <Box w="full" maxW={{ base: "26rem", md: "unset" }} mx={{ base: "auto", md: 0 }}>
+              <LinkList title={t.help} links={helpLinks} />
+            </Box>
+
+            <Box w="full" maxW={{ base: "26rem", md: "unset" }} mx={{ base: "auto", md: 0 }}>
+              <SocialLinks title={t.social} langBtn={t.langBtn} onLangToggle={changeLang} />
+            </Box>
           </SimpleGrid>
         </Container>
 
@@ -121,7 +144,9 @@ export default function Footer() {
       </Box>
 
       {/* Bottom */}
-      <FooterBottom text={t.bottom} isAR={isAR} />
+      <Box textAlign={{ base: "center", md: "inherit" }}>
+        <FooterBottom text={t.bottom} isAR={isAR} />
+      </Box>
     </Box>
   );
 }

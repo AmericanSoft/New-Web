@@ -1,8 +1,8 @@
-import ContactUs from "../components/Contact/ContactUs";
-import Hero from "../components/Hero";
-import ProjectsCarousel from "../components/Projects/ProjectsCarousel";
-import OurServices from "../components/Services/OurServices";
-import WhyChooseUs from "../components/WhyChooseUs/WhyChooseUs";
+import ContactUs from "../features/Contact/ContactUs";
+import Hero from "../components/HeroSection/Hero";
+import ProjectsCarousel from "../features/Projects/ProjectsCarousel";
+import OurServices from "../features/Services/OurServices";
+import WhyChooseUs from "../features/WhyChooseUs/WhyChooseUs";
 import AmericanSoftFAQ from "./FAQ";
 
 export default function Home() {

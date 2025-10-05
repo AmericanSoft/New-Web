@@ -5,13 +5,18 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "";
 /** مهلة افتراضية للطلبات (ms) */
 const DEFAULT_TIMEOUT = 15000;
 
+if (!BASE_URL && import.meta.env.MODE !== "production") {
+  console.warn("[HTTP] VITE_API_BASE_URL is empty!");
+}
+
 /** يبني URL كامل بالـ base + المسار + كويـري سترنج اختياري */
 function buildUrl(path, query) {
   const cleanPath = String(path || "").replace(/^\/+/, "");
   const url = new URL(`${BASE_URL}/${cleanPath}`);
   if (query && typeof query === "object") {
     Object.entries(query).forEach(([k, v]) => {
-      if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
+      if (Array.isArray(v)) v.forEach(val => url.searchParams.append(k, String(val)));
+      else if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
     });
   }
   return url.toString();
@@ -19,41 +24,24 @@ function buildUrl(path, query) {
 
 /** يحاول قراءة JSON بأمان */
 async function safeJson(res) {
-  // 204 No Content
   if (res.status === 204) return null;
-
-  // لو السيرفر بيرجع JSON صح هتكون الهيدر مضبوط
   const ct = res.headers.get("content-type") || "";
   if (ct.includes("application/json")) {
-    try {
-      return await res.json();
-    } catch {
-      // fallback للنص
-    }
+    try { return await res.json(); } catch {}
   }
   const text = await res.text();
-  try {
-    return text ? JSON.parse(text) : null;
-  } catch {
-    return text || null;
-  }
+  try { return text ? JSON.parse(text) : null; } catch { return text || null; }
 }
 
 /** صياغة رسالة Laravel مفهومة */
 function extractLaravelError(payload) {
-  // Laravel الافتراضي:
-  // { message: "The given data was invalid.", errors: { field: ["msg", ...] } }
   const errors = payload && payload.errors;
   const messageFromErrors =
-    errors &&
-    Object.entries(errors)
-      .map(([f, msgs]) => `${f}: ${(msgs || []).join(", ")}`)
-      .join(" | ");
+    errors && Object.entries(errors)
+      .map(([f, msgs]) => `${f}: ${(msgs || []).join(", ")}`).join(" | ");
 
-  const message =
-    messageFromErrors ||
-    (payload && (payload.message || payload.error)) ||
-    "Submission failed";
+  const message = messageFromErrors ||
+    (payload && (payload.message || payload.error)) || "Submission failed";
 
   return { message, fieldErrors: errors || null };
 }
@@ -64,7 +52,7 @@ function throwHttpError(status, payload, url) {
   const err = new Error(message || `HTTP ${status} for ${url}`);
   err.status = status;
   err.payload = payload;
-  err.fieldErrors = fieldErrors; // مهم: عشان نعرضها في الواجهة
+  err.fieldErrors = fieldErrors;
   err.url = url;
 
   if (import.meta.env.MODE !== "production") {
@@ -76,19 +64,11 @@ function throwHttpError(status, payload, url) {
     console.log("Payload:", payload);
     console.groupEnd();
   }
-
   throw err;
 }
 
 /**
  * استدعاء HTTP عام
- * @param {object} opts
- * @param {"GET"|"POST"|"PUT"|"PATCH"|"DELETE"} opts.method
- * @param {string} opts.path
- * @param {object} [opts.query]
- * @param {object|FormData} [opts.body]
- * @param {object} [opts.headers]
- * @param {number} [opts.timeout]
  */
 export async function httpRequest({
   method = "GET",
@@ -112,19 +92,19 @@ export async function httpRequest({
       method,
       headers: {
         Accept: "application/json",
+        "X-Requested-With": "XMLHttpRequest",
         ...(isJson ? { "Content-Type": "application/json" } : {}),
         ...headers,
       },
-      body: isJson ? JSON.stringify(body) : body, // يدعم FormData أيضًا
+      body: isJson ? JSON.stringify(body) : body,
       signal: controller.signal,
-      credentials: "omit",
+      credentials: "omit", // غيّرها لـ "include" لو API محتاج كوكيز
     });
   } catch (e) {
     clearTimeout(id);
     if (e.name === "AbortError") {
       const err = new Error(`Request timed out after ${timeout}ms: ${url}`);
-      err.code = "TIMEOUT";
-      err.url = url;
+      err.code = "TIMEOUT"; err.url = url;
       throw err;
     }
     throw e;
@@ -133,20 +113,15 @@ export async function httpRequest({
   }
 
   const data = await safeJson(res);
-
-  if (!res.ok) {
-    // ارمي خطأ مفيد (يشمل fieldErrors لو موجودة)
-    throwHttpError(res.status, data, url);
-  }
+  if (!res.ok) throwHttpError(res.status, data, url);
 
   if (import.meta.env.MODE !== "production") {
     console.debug("[HTTP OK]", method, url, { data });
   }
-
   return data;
 }
 
-// سهل الاستخدام: دوال مختصرة
+// دوال مختصرة
 export const api = {
   get: (path, query, opts) => httpRequest({ method: "GET", path, query, ...opts }),
   post: (path, body, opts) => httpRequest({ method: "POST", path, body, ...opts }),

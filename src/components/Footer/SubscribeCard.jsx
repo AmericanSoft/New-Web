@@ -4,7 +4,7 @@ import { Box, Heading, Text, Input, Button, useColorModeValue, VStack } from "@c
 export default function SubscribeCard({ title, subtitle, placeholder, cta, onSubmit }) {
   const cardBg = useColorModeValue("white", "whiteAlpha.100");
   const borderCol = useColorModeValue("gray.200", "whiteAlpha.300");
-  const brand = "#c81f1f";
+  const brand = "#4F46E5";
 
   return (
     <VStack align="stretch" spacing={4}>

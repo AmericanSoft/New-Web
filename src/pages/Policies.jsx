@@ -1,10 +1,5 @@
 // src/pages/Policies.jsx
-import React, {
-  useMemo,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useMemo, useState, useEffect, useCallback } from "react";
 import {
   Box,
   Container,
@@ -23,7 +18,7 @@ import {
   CardBody,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import { POLICIES_STRINGS as STR } from "./policies"; // 👈 استيراد الترجمة
+import { POLICIES_STRINGS as STR } from "./policies";
 
 export default function Policies() {
   const { pathname, hash } = useLocation();
@@ -32,21 +27,26 @@ export default function Policies() {
   const t = STR[lang];
   const dir = t.dir;
 
-  // ألوان
+  // Colors
   const pageBg = useColorModeValue("gray.50", "gray.900");
   const cardBg = useColorModeValue("white", "gray.800");
   const subText = useColorModeValue("gray.600", "gray.300");
   const borderCol = useColorModeValue("gray.200", "whiteAlpha.300");
 
-  // تحديث dir/lang على مستوى الصفحة
+  // set html dir/lang
   useEffect(() => {
     document.documentElement.setAttribute("dir", dir);
     document.documentElement.setAttribute("lang", lang);
   }, [dir, lang]);
 
   // JSON-LD
-  const org = { name: t.brand, url: "https://american-soft.example.com", email: t.contactEmail };
+  const org = {
+    name: t.brand,
+    url: "https://american-soft.example.com",
+    email: t.contactEmail,
+  };
   const lastUpdated = "October 2, 2025";
+
   const jsonLd = useMemo(
     () => [
       {
@@ -66,20 +66,20 @@ export default function Policies() {
         publisher: { "@type": "Organization", name: org.name, url: org.url },
       },
     ],
-    [org.name, org.url]
+    [org.name, org.url, lastUpdated]
   );
 
-  // Smooth scroll + hash update (بدون تغيير Route)
+  // smooth scroll
   const scrollToId = useCallback((id) => {
     const el = document.getElementById(id);
     if (!el) return;
-    const headerOffset = 90; // عدّل حسب ارتفاع الهيدر
+    const headerOffset = 90;
     const y = window.scrollY + el.getBoundingClientRect().top - headerOffset;
     window.scrollTo({ top: y, behavior: "smooth" });
     history.replaceState(null, "", `#${id}`);
   }, []);
 
-  // Scroll to hash on mount if exists
+  // scroll to hash if present
   useEffect(() => {
     if (hash && hash.startsWith("#")) {
       const id = hash.slice(1);
@@ -88,10 +88,21 @@ export default function Policies() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Scroll-Spy
+  // scroll spy
   const [activeId, setActiveId] = useState("tos");
   useEffect(() => {
-    const ids = ["tos","privacy","cookies","billing","ip","aup","security","rights","law","contact"];
+    const ids = [
+      "tos",
+      "privacy",
+      "cookies",
+      "billing",
+      "ip",
+      "aup",
+      "security",
+      "rights",
+      "law",
+      "contact",
+    ];
     const headerOffset = 100;
     const onScroll = () => {
       let current = ids[0];
@@ -99,7 +110,8 @@ export default function Policies() {
         const el = document.getElementById(id);
         if (!el) continue;
         const top = el.getBoundingClientRect().top;
-        if (top - headerOffset <= 0) current = id; else break;
+        if (top - headerOffset <= 0) current = id;
+        else break;
       }
       setActiveId(current);
     };
@@ -108,7 +120,7 @@ export default function Policies() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // قسم موحّد
+  // section component
   const Sec = ({ id, title, children }) => (
     <Card
       id={id}
