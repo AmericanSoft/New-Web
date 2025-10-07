@@ -1,0 +1,141 @@
+{
+  "about": {
+    "meta": {
+      "brand": "American Soft Inc.",
+      "email": "americansoft8@gmail.com",
+      "phone": "+201080877774",
+      "website": "https://american-softwares.com",
+      "address": "Nasr City, Cairo, Egypt"
+    },
+    "contactLine": "Or contact us directly at"
+  },
+
+  "contactus": {
+    "constactus": "Contact Us",
+    "titlecontactus": "Company contact details",
+    "mail": "E-mail",
+    "phone": "Phone",
+    "location": "Location",
+    "street": "Nasr City, Cairo, Egypt",
+    "workinghours": "Working Hours",
+    "days": "Sun–Thu, 10:00 AM – 6:00 PM"
+  },
+
+  "form": {
+    "formbadge": "Quick quote form",
+    "titleform": "Tell us about your project",
+    "username": "Full name",
+    "mail": "Your email",
+    "phone": "Mobile (11 digits)",
+    "phoneMustBe11": "Phone number must be exactly 11 digits",
+    "phoneHint": "Enter 11 digits with no symbols or spaces.",
+    "company": "Company (optional)",
+
+    "subject": {
+      "placeholder": "Select a subject",
+      "options": {
+        "web_design": "Web Design",
+        "mobile_app": "Mobile Application",
+        "custom_software": "Custom Software",
+        "seo_strategy": "Seo Strategy",
+        "portfolio_examples": "Portfolio / Examples"
+      }
+    },
+
+    "notesPlaceholder": "Any extra details…",
+    "notesHint": "Optional — up to 1000 characters.",
+
+    "btnform": "Send request",
+    "submitting": "Submitting…",
+    "submitSuccess": "Request submitted successfully!",
+    "submitFail": "Submission failed",
+    "networkError": "Network/server error",
+    "validationRequired": "Please fill in all required fields"
+  },
+
+  "service": {
+    "android": {
+      "badge": "Android Development",
+      "title": "High-performance Android apps — built for scale",
+      "subtitle": "Native or cross-platform Android apps with modern UI, offline support, and secure integrations.",
+      "serviceType": "Android application development",
+      "features": [
+        "Native (Kotlin) or cross-platform (Flutter/React Native)",
+        "Modern UI patterns (Material 3), responsive layouts",
+        "Offline mode, background sync, push notifications",
+        "Robust API integrations and secure auth",
+        "CI/CD, automated tests, and analytics"
+      ],
+      "benefitsTitle": "Why Android with us?",
+      "benefits": [
+        "Faster time-to-market with clean, maintainable code",
+        "Great performance and battery-aware design",
+        "Scalable architecture for future features",
+        "Release with monitoring, crash reporting, and KPIs"
+      ],
+      "stackTitle": "Tech we use",
+      "stack": ["Kotlin", "Jetpack", "Compose", "Flutter", "React Native", "Firebase", "Room", "Retrofit"],
+      "cta": {
+        "title": "Ready to launch your Android app?",
+        "desc": "Tell us your idea and goals. We’ll propose the best approach and timeline.",
+        "btn": "Request a proposal"
+      }
+    },
+
+    "ios": {
+      "badge": "iOS Development",
+      "title": "Elegant iOS apps — performance and polish",
+      "subtitle": "Swift-based iOS apps with delightful UX, secure data, and best-in-class performance.",
+      "serviceType": "iOS application development",
+      "features": [
+        "Native Swift/SwiftUI or cross-platform (Flutter/React Native)",
+        "Beautiful UI, accessibility, and motion design",
+        "Keychain, biometric auth, secure storage",
+        "App Store delivery, TestFlight, and analytics",
+        "CI/CD pipelines and QA automation"
+      ],
+      "benefitsTitle": "Why iOS with us?",
+      "benefits": [
+        "Pixel-perfect design aligned with Apple HIG",
+        "Smooth animations and energy-efficient delivery",
+        "Privacy-minded architecture and secure APIs",
+        "Measurable growth with product analytics"
+      ],
+      "stackTitle": "Tech we use",
+      "stack": ["Swift", "SwiftUI", "Combine", "UIKit", "Flutter", "React Native", "CoreData", "Alamofire"],
+      "cta": {
+        "title": "Build a premium iOS experience",
+        "desc": "We’ll help you ship fast with quality and metrics from day one.",
+        "btn": "Start your project"
+      }
+    },
+
+    "desktop": {
+      "badge": "Desktop Apps",
+      "title": "Reliable desktop applications for business and pro users",
+      "subtitle": "Cross-platform desktop apps with offline-first architecture and seamless updates.",
+      "serviceType": "Desktop application development",
+      "features": [
+        "Cross-platform (Electron/Tauri) or native",
+        "Auto-updates, crash reporting, and telemetry",
+        "Local database and sync conflict handling",
+        "Plugin-ready architecture and secure IPC",
+        "Theming, accessibility, and keyboard-first UX"
+      ],
+      "benefitsTitle": "Why Desktop with us?",
+      "benefits": [
+        "Rock-solid releases with CI/CD and QA suites",
+        "Optimized memory/CPU footprint and smooth UI",
+        "Modular architecture for long-term evolution",
+        "Enterprise security and signed installers"
+      ],
+      "stackTitle": "Tech we use",
+      "stack": ["Electron", "Tauri", "Node.js", "Rust", "C#", ".NET", "SQLite", "LevelDB"],
+      "cta": {
+        "title": "Need a powerful desktop app?",
+        "desc": "Let’s plan features, roadmap, and the delivery pipeline together.",
+        "btn": "Request a proposal"
+      }
+    }
+  }
+}
